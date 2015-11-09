@@ -1,5 +1,5 @@
 ﻿
-public class AppotaFBEventParameter {
+public class GMOFBEventParameter {
 
 	public const string PaymentInfoAvailable = "fb_payment_info_available";
 	

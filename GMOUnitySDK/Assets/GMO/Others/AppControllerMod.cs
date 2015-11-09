@@ -15,8 +15,8 @@ public class AppControllerMod
 		// Add header import
 		AppControllerSource = AddHeaderImportFramework(AppControllerSource);
 
-		// Add Appota Handler Callback
-		AppControllerSource = AddAppotaHandlerCallback(AppControllerSource);
+		// Add SDK Handler Callback
+		AppControllerSource = AddSDKHandlerCallback(AppControllerSource);
 
 		// Add callback register Push Notification
 		AppControllerSource = AddCallbackRegisterPushNotifications(AppControllerSource);
@@ -27,10 +27,10 @@ public class AppControllerMod
 		// Add callback register Push Notification with Token data
 		AppControllerSource = AddCallbackRegisterPushNotificationWithTokenData(AppControllerSource);
 
-		if (AppotaSetting.UsingAppFlyer) 
+		if (GMOSetting.UsingAppFlyer) 
 			AppControllerSource = AddAppFlyerConfigure(AppControllerSource);
 
-		if (AppotaSetting.UsingAdWords)
+		if (GMOSetting.UsingAdWords)
 			AppControllerSource = AddAdWordsConfigure(AppControllerSource);
 
         var writer = new StreamWriter(fullPath, false);
@@ -39,7 +39,7 @@ public class AppControllerMod
         
     }
 
-	private static string AddAppotaHandlerCallback(string AppControllerSource) {
+	private static string AddSDKHandlerCallback(string AppControllerSource) {
 		int fixupStart = AppControllerSource.IndexOf("openURL:", System.StringComparison.Ordinal);
 		if(fixupStart <= 0)
 			return AppControllerSource;
@@ -54,10 +54,10 @@ public class AppControllerMod
 		
 		if (AppControllerSource.IndexOf("GMOGameSDK handleOpenURL", System.StringComparison.Ordinal) <= 0){
 			// Base on kind of SDK
-			if (System.Type.GetType("AppotaSDKHandler,Assembly-CSharp") != null && System.Type.GetType("OnClanSDKHandler,Assembly-CSharp") != null) {
+			if (System.Type.GetType("GMOSDKHandler,Assembly-CSharp") != null && System.Type.GetType("OnClanSDKHandler,Assembly-CSharp") != null) {
 				fixedAppController += "[GMOGameSDK handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];\n[OCSDKConfigure handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];\nreturn true;";
 			}
-			else if (System.Type.GetType("AppotaSDKHandler,Assembly-CSharp") != null) {
+			else if (System.Type.GetType("GMOSDKHandler,Assembly-CSharp") != null) {
 				fixedAppController += "return [GMOGameSDK application:application handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];";
 			}
 			else if (System.Type.GetType("OnClanSDKHandler,Assembly-CSharp") != null) {
@@ -80,10 +80,10 @@ public class AppControllerMod
 		
 		if ( AppControllerSource.IndexOf("GMOSDK.h", System.StringComparison.Ordinal) <= 0 || AppControllerSource.IndexOf("OnClanSDK.h", System.StringComparison.Ordinal) <= 0){
 			// Base on kind of SDK
-			if (System.Type.GetType("AppotaSDKHandler,Assembly-CSharp") != null && System.Type.GetType("OnClanSDKHandler,Assembly-CSharp") != null) {
+			if (System.Type.GetType("GMOSDKHandler,Assembly-CSharp") != null && System.Type.GetType("OnClanSDKHandler,Assembly-CSharp") != null) {
 				finalFixedAppController += "#import <GMOSDK/GMOSDK.h>\n#import <OnClanSDK/OCSDK.h>\n#import <OpenGLES/EAGL.h>";
 			}
-			else if (System.Type.GetType("AppotaSDKHandler,Assembly-CSharp") != null) {
+			else if (System.Type.GetType("GMOSDKHandler,Assembly-CSharp") != null) {
 				finalFixedAppController += "#import <GMOSDK/GMOSDK.h>\n#import <OpenGLES/EAGL.h>";
 			}
 			else if (System.Type.GetType("OnClanSDKHandler,Assembly-CSharp") != null) {
@@ -185,8 +185,8 @@ public class AppControllerMod
 		string tempString = finalAppController.Substring(0, regPosEnd);
 		
 		if (finalAppController.IndexOf("AppsFlyerTracker sharedTracker", System.StringComparison.Ordinal) <= 0){
-			tempString += "{\n\t[AppsFlyerTracker sharedTracker].appleAppID = @\"" + AppotaSetting.AppleAppID + "\";";
-			tempString += "\n\t[AppsFlyerTracker sharedTracker].appsFlyerDevKey = @\"" + AppotaSetting.AppFlyerKey + "\";";
+			tempString += "{\n\t[AppsFlyerTracker sharedTracker].appleAppID = @\"" + GMOSetting.AppleAppID + "\";";
+			tempString += "\n\t[AppsFlyerTracker sharedTracker].appsFlyerDevKey = @\"" + GMOSetting.AppFlyerKey + "\";";
 		}
 		
 		tempString += finalAppController.Substring(regPosEnd+1);
@@ -244,10 +244,10 @@ public class AppControllerMod
 		string tempString = finalAppController.Substring(0, regPosEnd);
 		
 		if (finalAppController.IndexOf("ACTConversionReporter reportWithConversionID", System.StringComparison.Ordinal) <= 0){
-			string isRepeatable = AppotaSetting.AdWordsIsRepeatable?"YES":"NO";
-			tempString += "{\n\t[ACTAutomatedUsageTracker enableAutomatedUsageReportingWithConversionID:@\"" + AppotaSetting.AdWordsConversionID +"\"];" +
-				"\n\t[ACTConversionReporter reportWithConversionID:@\"" + AppotaSetting.AdWordsConversionID 
-				+ "\" label:@\"" + AppotaSetting.AdWordsLabel + "\" value:@\"" + AppotaSetting.AdWordsValue + "\" isRepeatable:" 
+			string isRepeatable = GMOSetting.AdWordsIsRepeatable?"YES":"NO";
+			tempString += "{\n\t[ACTAutomatedUsageTracker enableAutomatedUsageReportingWithConversionID:@\"" + GMOSetting.AdWordsConversionID +"\"];" +
+				"\n\t[ACTConversionReporter reportWithConversionID:@\"" + GMOSetting.AdWordsConversionID 
+				+ "\" label:@\"" + GMOSetting.AdWordsLabel + "\" value:@\"" + GMOSetting.AdWordsValue + "\" isRepeatable:" 
 				+ isRepeatable + "];";
 		}
 		

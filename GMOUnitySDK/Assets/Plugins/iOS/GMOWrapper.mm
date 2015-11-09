@@ -192,7 +192,7 @@ extern "C" {
 
 - (void) didCloseLoginView {
     NSLog(@"Close login view");
-    UnitySendMessage("AppotaSDKReceiver", "OnCloseLoginView", "");
+    UnitySendMessage("GMOSDKReceiver", "OnCloseLoginView", "");
 }
 
 - (NSString*) getPaymentStateWithPackageID:(NSString *) packageID {
@@ -223,16 +223,16 @@ extern "C" {
     json = [json stringByAppendingString:@"\","];
     json = [json stringByAppendingString:@"}"];
     
-    UnitySendMessage("AppotaSDKReceiver", "OnLoginSuccess", [json UTF8String]);
+    UnitySendMessage("GMOSDKReceiver", "OnLoginSuccess", [json UTF8String]);
     
-    [FBSDKAppEvents logEvent:@"appota_mobile_complete_login"];
+    [FBSDKAppEvents logEvent:@"GMO_mobile_complete_login"];
 }
 
 /*
  * Callback when login error
  */
 - (void) didLoginErrorWithMessage:(NSString *)message withError:(NSError *)error {
-    UnitySendMessage("AppotaSDKReceiver", "OnLoginError", [message UTF8String]);
+    UnitySendMessage("GMOSDKReceiver", "OnLoginError", [message UTF8String]);
 }
 
 /*
@@ -245,7 +245,7 @@ extern "C" {
         temp = userName;
     }
     
-    UnitySendMessage("AppotaSDKReceiver", "OnLogoutSuccess", [temp UTF8String]);
+    UnitySendMessage("GMOSDKReceiver", "OnLogoutSuccess", [temp UTF8String]);
 }
 
 - (void) didPaymentSuccessWithResult:(GMOPaymentResult*) paymentResult withPackage:(NSString *) packageID {
@@ -274,7 +274,7 @@ extern "C" {
     json = [json stringByAppendingString:@"\","];
     json = [json stringByAppendingString:@"}"];
     
-    UnitySendMessage("AppotaSDKReceiver", "OnPaymentSuccess", [json UTF8String]);
+    UnitySendMessage("GMOSDKReceiver", "OnPaymentSuccess", [json UTF8String]);
     
     // Purchase
     [FBSDKAppEvents logPurchase:[paymentResult getAmountPaymentResult] currency:[paymentResult currency]
@@ -283,7 +283,7 @@ extern "C" {
 }
 
 - (void) didPaymentErrorWithMessage:(NSString *)message withError:(NSError *)error {
-    UnitySendMessage("AppotaSDKReceiver", "OnPaymentFailed", [message UTF8String]);
+    UnitySendMessage("GMOSDKReceiver", "OnPaymentFailed", [message UTF8String]);
 }
 
 @end

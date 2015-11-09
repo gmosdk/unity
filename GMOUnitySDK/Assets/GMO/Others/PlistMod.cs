@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml;
 
-namespace Appota
+namespace GMO
 {
 	public class PlistMod
 	{
@@ -92,9 +92,9 @@ namespace Appota
 			
 			//add the app id to the plist
 			//the xml should end up looking like this
-			if(!HasKey(dict, "AppotaAPIKey"))
+			if(!HasKey(dict, "GMOAPIKey"))
 			{
-				AddChildElement(doc, dict, "key", "AppotaAPIKey");
+				AddChildElement(doc, dict, "key", "GMOAPIKey");
 				AddChildElement(doc, dict, "string", apikey);
 			}
 			

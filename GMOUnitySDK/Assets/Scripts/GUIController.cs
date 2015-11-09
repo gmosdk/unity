@@ -10,16 +10,16 @@ public class GUIController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		#if UNITY_IPHONE
-		AppotaSDKHandler.Instance.Init();
-		AppotaSDKHandler.Instance.SetAutoShowLoginDialog(false);
+		GMOSDKHandler.Instance.Init();
+		GMOSDKHandler.Instance.SetAutoShowLoginDialog(false);
 		#endif
 
 		#if UNITY_ANDROID
-		AppotaSDKHandler.Instance.Init();
-		AppotaSDKHandler.Instance.SetAutoShowLoginDialog(true);
-		AppotaSDKHandler.Instance.UseSmallSDKButton();
-		AppotaSDKHandler.Instance.SetKeepLoginSession(true);
-		AppotaSDKHandler.Instance.SetKeepCardPaymentPackageID(true);
+		GMOSDKHandler.Instance.Init();
+		GMOSDKHandler.Instance.SetAutoShowLoginDialog(true);
+		GMOSDKHandler.Instance.UseSmallSDKButton();
+		GMOSDKHandler.Instance.SetKeepLoginSession(true);
+		GMOSDKHandler.Instance.SetKeepCardPaymentPackageID(true);
 		#endif
 
 	}
@@ -32,7 +32,7 @@ public class GUIController : MonoBehaviour {
 
 	void OnApplicationQuit(){
 		#if UNITY_ANDROID
-		AppotaSDKHandler.Instance.FinishSDK();
+		GMOSDKHandler.Instance.FinishSDK();
 		#endif
 	}
 
@@ -45,32 +45,32 @@ public class GUIController : MonoBehaviour {
 		customButton.fontSize = 30;
 		
 		if(GUI.Button(new Rect(ScreenWidth / 3, 40,ScreenWidth / 3,ScreenHeight / 10), "Login", customButton)) {
-			AppotaSDKHandler.Instance.ShowLoginView ();
+			GMOSDKHandler.Instance.ShowLoginView ();
 		}
 		
 		if(GUI.Button(new Rect(ScreenWidth / 3, 50 + ScreenHeight / 10,ScreenWidth / 3,ScreenHeight / 10), "Logout", customButton)) {
-			AppotaSDKHandler.Instance.Logout ();
+			GMOSDKHandler.Instance.Logout ();
 		}
 
 		if(GUI.Button(new Rect(ScreenWidth / 3, 60 + 2 * ScreenHeight / 10,ScreenWidth / 3,ScreenHeight / 10), "Switch Account", customButton)) {
-			AppotaSDKHandler.Instance.SwitchAccount ();
+			GMOSDKHandler.Instance.SwitchAccount ();
 		}
 
-		AppotaSession appotaSession = AppotaSDKHandler.Instance.GetAppotaSession();
-		text = "UserID: " + appotaSession.UserID;
+		GMOSession gmoSession = GMOSDKHandler.Instance.GetGMOSession();
+		text = "UserID: " + gmoSession.UserID;
 		GUI.TextArea(new Rect(10, 40, ScreenWidth / 4, ScreenHeight / 10), text, 200, customButton);
 
-		if(AppotaSDKHandler.Instance.IsUserLoggedIn()){	
+		if(GMOSDKHandler.Instance.IsUserLoggedIn()){	
 			if(GUI.Button(new Rect(ScreenWidth / 3, 70 + 3 * ScreenHeight / 10,ScreenWidth / 3,ScreenHeight / 10), "User Info", customButton)) {
-				AppotaSDKHandler.Instance.ShowUserInfoView ();
+				GMOSDKHandler.Instance.ShowUserInfoView ();
 			}
 
 			if(GUI.Button(new Rect(ScreenWidth / 3, 80 + 4 * ScreenHeight / 10,ScreenWidth / 3,ScreenHeight / 10), "Payment", customButton)) {
-				AppotaSDKHandler.Instance.ShowPaymentView ();
+				GMOSDKHandler.Instance.ShowPaymentView ();
 			}
 
 			if(GUI.Button(new Rect(ScreenWidth / 3, 90 + 5 * ScreenHeight / 10,ScreenWidth / 3,ScreenHeight / 10), "Payment With Package", customButton)) {
-				AppotaSDKHandler.Instance.ShowPaymentViewWithPackageID ("app.pkid.tym4K");
+				GMOSDKHandler.Instance.ShowPaymentViewWithPackageID ("app.pkid.tym4K");
 			}
 
 		}

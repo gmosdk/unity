@@ -2,12 +2,12 @@
 using System.IO;
 using System.Xml;
 
-namespace Appota
+namespace GMO
 {
 	public class MainXAMLMod : MonoBehaviour {
 		
 		const string stringHeader = "using System;\nusing APTCallback; \nusing APTPaymentResult;\nusing APTPaymentService;";
-		const string stringImplClass = @"MainPage : PhoneApplicationPage, AppotaSDKCallback
+		const string stringImplClass = @"MainPage : PhoneApplicationPage, GMOSDKCallback
     {";
 		const string stringFunctionInit = @"
 			SetupGeolocator();
@@ -16,37 +16,37 @@ namespace Appota
 		const string stringParagraph = 
 			@"
 		
-		AppotaGameSDK gameSDK;
+		GMOGameSDK gameSDK;
 
         private void SDKInit()
         {
-  			AppotaSDKHandler.Instance._Init += _AppotaSDKHandler__InitSDK;
-            AppotaSDKHandler.Instance._Logout += _AppotaSDKHandler__Logout;
-            AppotaSDKHandler.Instance._MakePayment += _AppotaSDKHandler__MakePayment;
-            AppotaSDKHandler.Instance._ShowLoginView += _AppotaSDKHandler__ShowLoginView;
-            AppotaSDKHandler.Instance._ShowUserInfo += _AppotaSDKHandler__ShowUserInfo;
-            AppotaSDKHandler.Instance._SwitchAccount += _AppotaSDKHandler__SwitchAccount;
-            AppotaSDKHandler.Instance._SetAutoShowLogin += _AppotaSDKHandler__SetAutoShowLogin;
+  			GMOSDKHandler.Instance._Init += _GMOSDKHandler__InitSDK;
+            GMOSDKHandler.Instance._Logout += _GMOSDKHandler__Logout;
+            GMOSDKHandler.Instance._MakePayment += _GMOSDKHandler__MakePayment;
+            GMOSDKHandler.Instance._ShowLoginView += _GMOSDKHandler__ShowLoginView;
+            GMOSDKHandler.Instance._ShowUserInfo += _GMOSDKHandler__ShowUserInfo;
+            GMOSDKHandler.Instance._SwitchAccount += _GMOSDKHandler__SwitchAccount;
+            GMOSDKHandler.Instance._SetAutoShowLogin += _GMOSDKHandler__SetAutoShowLogin;
         }
 
-  		private void _AppotaSDKHandler__InitSDK()
+  		private void _GMOSDKHandler__InitSDK()
         {
 
    			Dispatcher.BeginInvoke(() =>
             {
-				if (gameSDK == null) gameSDK = new AppotaGameSDK
+				if (gameSDK == null) gameSDK = new GMOGameSDK
              	(
-	                 AppotaSetting.InAppApiKey,
-	                 AppotaSetting.SandboxApiKey,
-	                 AppotaSetting.IsUsingSandbox,
-	                 AppotaSetting.NoticeURL,
-	                 AppotaSetting.ConfigURL,
-	                 AppotaSetting.FacebookAppID,
-	                 AppotaSetting.FacebookAppSecretID,
-	                 AppotaSetting.GoogleClientId,
-	                 AppotaSetting.GoogleClientSecretId,
-	                 AppotaSetting.TwitterConsumerKey,
-	                 AppotaSetting.TwitterConsumerSecret,
+	                 GMOSetting.InAppApiKey,
+	                 GMOSetting.SandboxApiKey,
+	                 GMOSetting.IsUsingSandbox,
+	                 GMOSetting.NoticeURL,
+	                 GMOSetting.ConfigURL,
+	                 GMOSetting.FacebookAppID,
+	                 GMOSetting.FacebookAppSecretID,
+	                 GMOSetting.GoogleClientId,
+	                 GMOSetting.GoogleClientSecretId,
+	                 GMOSetting.TwitterConsumerKey,
+	                 GMOSetting.TwitterConsumerSecret,
 	                 this
              	);
             });
@@ -54,7 +54,7 @@ namespace Appota
         }
 
 
-        private void _AppotaSDKHandler__SwitchAccount()
+        private void _GMOSDKHandler__SwitchAccount()
         {
             Dispatcher.BeginInvoke(() =>
             {
@@ -62,7 +62,7 @@ namespace Appota
             });
         }
 
-        void _AppotaSDKHandler__SetAutoShowLogin(bool obj)
+        void _GMOSDKHandler__SetAutoShowLogin(bool obj)
         {
  			Dispatcher.BeginInvoke(() =>
             {
@@ -70,7 +70,7 @@ namespace Appota
 			});
         }
 
-        void _AppotaSDKHandler__ShowUserInfo()
+        void _GMOSDKHandler__ShowUserInfo()
         {
             Dispatcher.BeginInvoke(() =>
             {
@@ -78,7 +78,7 @@ namespace Appota
             });
         }
 
-        void _AppotaSDKHandler__ShowLoginView()
+        void _GMOSDKHandler__ShowLoginView()
         {
             Dispatcher.BeginInvoke(() =>
             {
@@ -87,7 +87,7 @@ namespace Appota
             });
         }
 
-        void _AppotaSDKHandler__MakePayment()
+        void _GMOSDKHandler__MakePayment()
         {
             Dispatcher.BeginInvoke(() =>
             {
@@ -95,7 +95,7 @@ namespace Appota
             });
         }
 
-        void _AppotaSDKHandler__Logout()
+        void _GMOSDKHandler__Logout()
         {
             gameSDK.LogoutAccount();
         }
@@ -107,7 +107,7 @@ namespace Appota
 
         public void onPaymentSuccess(TransactionResult result)
         {
-            AppotaSDKReceiver.Instance.OnPaymentSuccess(result.getAmount());
+            GMOSDKReceiver.Instance.OnPaymentSuccess(result.getAmount());
         }
 
         public void onUserLoginError(string message)
@@ -116,7 +116,7 @@ namespace Appota
 
         public void onUserLoginSuccess(UserLoginResult result)
         {
-            AppotaSDKReceiver.Instance.OnLoginSuccess(result.toJson());
+            GMOSDKReceiver.Instance.OnLoginSuccess(result.toJson());
         }
 
         public void onUserRegisterError(string message)

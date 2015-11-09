@@ -2,10 +2,10 @@ using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.Callbacks;
-using UnityEditor.XCodeEditor.Appota;
+using UnityEditor.XCodeEditor.GMO;
 #endif
 using System.IO;
-using Appota;
+using GMO;
 
 public static class XCodePostProcess
 {
@@ -34,7 +34,7 @@ public static class XCodePostProcess
 			}
 			
 			// Config while building project
-			PlistMod.UpdatePlist(pathToBuiltProject, AppotaSetting.InAppApiKey, AppotaSetting.FacebookAppID, AppotaSetting.FacebookAppLinkUrl, AppotaSetting.TwitterConsumerKey, AppotaSetting.TwitterConsumerSecret, AppotaSetting.GoogleClientId, AppotaSetting.GoogleClientSecretId);
+			PlistMod.UpdatePlist(pathToBuiltProject, GMOSetting.InAppApiKey, GMOSetting.FacebookAppID, GMOSetting.FacebookAppLinkUrl, GMOSetting.TwitterConsumerKey, GMOSetting.TwitterConsumerSecret, GMOSetting.GoogleClientId, GMOSetting.GoogleClientSecretId);
 			AppControllerMod.UpdateUnityAppController(pathToBuiltProject);
 			
 			//TODO implement generic settings as a module option
@@ -52,14 +52,14 @@ public static class XCodePostProcess
 			MainXAMLMod.UpdateMainPageXAML(pathToBuiltProject + "/" + projectName + "/MainPage.xaml.cs");
 			
 			// Copy library files 
-			if(!File.Exists(pathToBuiltProject + "/" + projectName + "/AppotaLib/APTPaymentService.dll"))
-   				FileUtil.CopyFileOrDirectory (Application.dataPath + "/Plugins/WP8/APTPaymentService.dll", pathToBuiltProject + "/" + projectName + "/AppotaLib/APTPaymentService.dll");
-			if(!File.Exists(pathToBuiltProject + "/" + projectName + "/AppotaLib/Hammock.WindowsPhone.dll"))
-				FileUtil.CopyFileOrDirectory (Application.dataPath + "/Plugins/WP8/Hammock.WindowsPhone.dll", pathToBuiltProject + "/" + projectName + "/AppotaLib/Hammock.WindowsPhone.dll");
-			if(!File.Exists(pathToBuiltProject + "/" + projectName + "/AppotaLib/ICSharpCode.SharpZipLib.WindowsPhone.dll"))
-				FileUtil.CopyFileOrDirectory (Application.dataPath + "/Plugins/WP8/ICSharpCode.SharpZipLib.WindowsPhone.dll", pathToBuiltProject + "/" + projectName + "/AppotaLib/ICSharpCode.SharpZipLib.WindowsPhone.dll");
-			if(!File.Exists(pathToBuiltProject + "/" + projectName + "/AppotaLib/PayPal.Checkout.SDK-WindowsPhone8.dll"))
-				FileUtil.CopyFileOrDirectory (Application.dataPath + "/Plugins/WP8/PayPal.Checkout.SDK-WindowsPhone8.dll", pathToBuiltProject + "/" + projectName + "/AppotaLib/PayPal.Checkout.SDK-WindowsPhone8.dll");
+			if(!File.Exists(pathToBuiltProject + "/" + projectName + "/GMOLib/APTPaymentService.dll"))
+   				FileUtil.CopyFileOrDirectory (Application.dataPath + "/Plugins/WP8/APTPaymentService.dll", pathToBuiltProject + "/" + projectName + "/GMOLib/APTPaymentService.dll");
+			if(!File.Exists(pathToBuiltProject + "/" + projectName + "/GMOLib/Hammock.WindowsPhone.dll"))
+				FileUtil.CopyFileOrDirectory (Application.dataPath + "/Plugins/WP8/Hammock.WindowsPhone.dll", pathToBuiltProject + "/" + projectName + "/GMOLib/Hammock.WindowsPhone.dll");
+			if(!File.Exists(pathToBuiltProject + "/" + projectName + "/GMOLib/ICSharpCode.SharpZipLib.WindowsPhone.dll"))
+				FileUtil.CopyFileOrDirectory (Application.dataPath + "/Plugins/WP8/ICSharpCode.SharpZipLib.WindowsPhone.dll", pathToBuiltProject + "/" + projectName + "/GMOLib/ICSharpCode.SharpZipLib.WindowsPhone.dll");
+			if(!File.Exists(pathToBuiltProject + "/" + projectName + "/GMOLib/PayPal.Checkout.SDK-WindowsPhone8.dll"))
+				FileUtil.CopyFileOrDirectory (Application.dataPath + "/Plugins/WP8/PayPal.Checkout.SDK-WindowsPhone8.dll", pathToBuiltProject + "/" + projectName + "/GMOLib/PayPal.Checkout.SDK-WindowsPhone8.dll");
 			
 		}
 		else {

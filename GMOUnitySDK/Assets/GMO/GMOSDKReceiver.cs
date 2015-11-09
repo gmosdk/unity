@@ -4,18 +4,18 @@ using System.Collections;
 using System.Threading;
 using SimpleJSON;
 
-public class AppotaSDKReceiver : MonoBehaviour {
+public class GMOSDKReceiver : MonoBehaviour {
 	private static GameObject playGameObject;
 	private static bool initialized;
 	
-	private static AppotaSDKReceiver _instance;
+	private static GMOSDKReceiver _instance;
 	
 	// Singleton for SDK handler
-	public static AppotaSDKReceiver Instance
+	public static GMOSDKReceiver Instance
 	{
 		get
 		{
-			if(_instance == null) _instance = new AppotaSDKReceiver();
+			if(_instance == null) _instance = new GMOSDKReceiver();
 			return _instance;
 		}
 	}
@@ -24,19 +24,19 @@ public class AppotaSDKReceiver : MonoBehaviour {
 	{
 		if(!initialized)
 		{
-			playGameObject = new GameObject("AppotaSDKReceiver");
-			playGameObject.AddComponent(typeof(AppotaSDKReceiver));
+			playGameObject = new GameObject("GMOSDKReceiver");
+			playGameObject.AddComponent(typeof(GMOSDKReceiver));
 			//keep this game object around for all scenes
 			DontDestroyOnLoad(playGameObject);		
 			initialized = true;
 		}	
 	}
 	
-	public void OnLoginSuccess(string appotaSession)
+	public void OnLoginSuccess(string gmoSession)
 	{
-		// Get User info from AppotaSession
-		AppotaSession appotaSessionObj = new AppotaSession(appotaSession);
-		AppotaSession.Instance.UpdateInstance(appotaSessionObj);
+		// Get User info from GMOSession
+		GMOSession gmoSessionObj = new GMOSession(gmoSession);
+		GMOSession.Instance.UpdateInstance(gmoSessionObj);
 		
 		Debug.Log ("GMOSDK: Did login");
 	}
@@ -53,8 +53,8 @@ public class AppotaSDKReceiver : MonoBehaviour {
 	
 	public void OnPaymentSuccess(string transactionResult)
 	{
-		// Parse Transaction result into class AppotaPaymentResult.cs
-		AppotaPaymentResult paymentResult = new AppotaPaymentResult(transactionResult);
+		// Parse Transaction result into class GMOPaymentResult.cs
+		GMOPaymentResult paymentResult = new GMOPaymentResult(transactionResult);
 		Debug.Log ("GMOSDK Currency: " + paymentResult.Currency);
 
 		// Parse amount, packageID, in AppPaymentResult
@@ -76,7 +76,7 @@ public class AppotaSDKReceiver : MonoBehaviour {
 	{
 		#if UNITY_ANDROID
 		// Must call this function to start Callback Thread
-		AppotaThreadHandler.Instance.Start();
+		GMOThreadHandler.Instance.Start();
 		#endif
 		
 		Debug.Log ("GMOSDK: Open Payment View");
@@ -86,7 +86,7 @@ public class AppotaSDKReceiver : MonoBehaviour {
     {
         #if UNITY_ANDROID
 		// Must call this function to stop Callback Thread
-		AppotaThreadHandler.Instance.Stop();
+		GMOThreadHandler.Instance.Stop();
         #endif
         
 		Debug.Log ("GMOSDK: Close Payment View");
@@ -105,7 +105,7 @@ public class AppotaSDKReceiver : MonoBehaviour {
 		paymentState += "|" + gameInfo + "|" + gameServerID + "|" + gameUserID;
 
 #if UNITY_ANDROID || UNITY_IPHONE
-        AppotaSDKHandler.Instance.SendStateToWrapper(paymentState);
+        GMOSDKHandler.Instance.SendStateToWrapper(paymentState);
 #endif
 	}
 	

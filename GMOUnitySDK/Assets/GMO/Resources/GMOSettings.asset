@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b618b83d21f94b4a9a217775f7473af, type: 3}
-  m_Name: AppotaSettings
+  m_Name: GMOSettings
   m_EditorClassIdentifier: 
   facebookAppID: 435546253225772
   facebookAppSecretID: 

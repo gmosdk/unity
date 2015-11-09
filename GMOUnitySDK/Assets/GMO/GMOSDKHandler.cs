@@ -5,19 +5,19 @@ using System.Runtime.InteropServices;
 using System;
 using System.Text;
 
-public class AppotaSDKHandler {
+public class GMOSDKHandler {
 	
-	private static AppotaSDKHandler _instance;
-	public static string APPOTA_VERSION = "4.1.0";
+	private static GMOSDKHandler _instance;
+	public static string GMO_VERSION = "4.1.0";
 
 	private bool closeViewAfterSuccessPayment = false;
 	
 	// Singleton for SDK handler
-	public static AppotaSDKHandler Instance
+	public static GMOSDKHandler Instance
 	{
 		get
 		{
-			if(_instance == null) _instance = new AppotaSDKHandler();
+			if(_instance == null) _instance = new GMOSDKHandler();
 			return _instance;
 		}
 	}
@@ -122,11 +122,11 @@ public class AppotaSDKHandler {
 	 * Call this function in your first scene or when you want user to login
 	 * */
 	public void Init(){
-		AppotaSDKReceiver.InitializeGameObjects ();
+		GMOSDKReceiver.InitializeGameObjects ();
 
 		init();
 		Debug.Log("Called init iOS ");
-		Debug.Log("GMOSDK-Unity Version: " + APPOTA_VERSION);
+		Debug.Log("GMOSDK-Unity Version: " + GMO_VERSION);
 	}
 	
 	/*
@@ -137,7 +137,7 @@ public class AppotaSDKHandler {
 	}
 	
 	/*
-	 * This function will control the Appota Login Session will be kept or removed at app lauching
+	 * This function will control the GMO Login Session will be kept or removed at app lauching
 	 * (when session's removed user has to login again when app start). 
 	 * */
 	public void SetKeepLoginSession(bool isKeepLoginSession){
@@ -145,7 +145,7 @@ public class AppotaSDKHandler {
 	}
 	
 	/*
-	 * This function will control the Appota Login View will be automatically show at app lauching (when user's not logged in)
+	 * This function will control the GMO Login View will be automatically show at app lauching (when user's not logged in)
 	 * Or you have to call [ShowLoginView](#show-login-view) function to show the LoginView.
 	 * */
 	public void SetAutoShowLoginDialog(bool autoShowLogin) {
@@ -180,7 +180,7 @@ public class AppotaSDKHandler {
 	}
 	
 	/*
-	 * Call this function when you want to switch logged in user to other Appota User. 
+	 * Call this function when you want to switch logged in user to other GMO User. 
 	 * Remember to check callback after switching successful (it'll be called in OnLoginSucceed again)
 	 * */
 	public void SwitchAccount()
@@ -220,10 +220,10 @@ public class AppotaSDKHandler {
 	}
 	
 	/*
-	 * Return AppotaSession if logged in
+	 * Return GMOSession if logged in
 	 * */
-	public AppotaSession GetAppotaSession() {
-		return AppotaSession.Instance;
+	public GMOSession GetGMOSession() {
+		return GMOSession.Instance;
 	}
 	
 	/*
@@ -342,75 +342,75 @@ public class AppotaSDKHandler {
 	#endif
 
 	#if UNITY_ANDROID
-	private AndroidJavaClass cls_AppotaUnityHandler;
+	private AndroidJavaClass cls_GMOUnityHandler;
 	
 	#region SDK functions
 	public void Init(){
-		AppotaSDKReceiver.InitializeGameObjects ();
+		GMOSDKReceiver.InitializeGameObjects ();
 		AndroidJNI.AttachCurrentThread ();
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		
 		Debug.Log("Start init Android");
 		
-		cls_AppotaUnityHandler.CallStatic("Init");
+		cls_GMOUnityHandler.CallStatic("Init");
 		
 		Debug.Log("Called init Android ");
-		Debug.Log("GMOSDK-Unity Version: " + APPOTA_VERSION);
+		Debug.Log("GMOSDK-Unity Version: " + GMO_VERSION);
 
 		// Configure Adwords and AppFlyer 
-		if (AppotaSetting.UsingAdWords)
-			AppotaSDKHandler.Instance.ConfigureAdwords();
+		if (GMOSetting.UsingAdWords)
+			GMOSDKHandler.Instance.ConfigureAdwords();
 
-		if (AppotaSetting.UsingAppFlyer)
-			AppotaSDKHandler.Instance.ConfigureAppFlyer();
+		if (GMOSetting.UsingAppFlyer)
+			GMOSDKHandler.Instance.ConfigureAppFlyer();
 	}
 	
 	public void SetAutoShowLoginDialog(bool autoShowLogin) {
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = autoShowLogin;
-		cls_AppotaUnityHandler.CallStatic("SetAutoShowLoginDialog", args);
+		cls_GMOUnityHandler.CallStatic("SetAutoShowLoginDialog", args);
 	}
 	
 	public void SetKeepLoginSession(bool isKeepLoginSession){
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = isKeepLoginSession;
-		cls_AppotaUnityHandler.CallStatic("SetKeepLoginSession", args);
+		cls_GMOUnityHandler.CallStatic("SetKeepLoginSession", args);
 	}
 	
 	// Have to call this function before Init() function.
 	public void SetHideWelcomeView(bool autoHideWelcomeView) {
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = autoHideWelcomeView;
-		cls_AppotaUnityHandler.CallStatic("SetHideWelcomeView", args);
+		cls_GMOUnityHandler.CallStatic("SetHideWelcomeView", args);
 	}
 
 	public void SetSDKButtonVisibility(bool isVisibility) {
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = isVisibility;
-		cls_AppotaUnityHandler.CallStatic("SetSDKButtonVisibility", args);
+		cls_GMOUnityHandler.CallStatic("SetSDKButtonVisibility", args);
     }
 
 	public void SetKeepCardPaymentPackageID(bool isKeepCardPackageID) {
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = isKeepCardPackageID;
-		cls_AppotaUnityHandler.CallStatic("SetKeepCardPaymentPackageID", args);
+		cls_GMOUnityHandler.CallStatic("SetKeepCardPaymentPackageID", args);
 	}
 	
 	public void UseSmallSDKButton()
 	{
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("UseSmallSDKButton");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("UseSmallSDKButton");
 	}
 
 	public void FinishSDK()
 	{
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("FinishSDK");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("FinishSDK");
 	}
 
 	public bool CloseViewAfterSuccessPayment{
@@ -427,217 +427,217 @@ public class AppotaSDKHandler {
 	#region User functions
 	public void Logout() {
 		Debug.Log ("Start logout");
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 
-		cls_AppotaUnityHandler.CallStatic("Logout");
+		cls_GMOUnityHandler.CallStatic("Logout");
 	}
 	
 	public void SwitchAccount()
 	{
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("SwitchAccount");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("SwitchAccount");
 	}
 	
 	public void ShowUserInfoView()
 	{
-		AppotaThreadHandler.Instance.Start();
+		GMOThreadHandler.Instance.Start();
 
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("ShowUserInfoView");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("ShowUserInfoView");
 	}
 
 	public void ShowRegisterView()
 	{
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("ShowRegisterView");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("ShowRegisterView");
 	}
 
 	public void ShowTransactionHistory()
 	{
-		AppotaThreadHandler.Instance.Start();
+		GMOThreadHandler.Instance.Start();
 
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("ShowTransactionHistory");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("ShowTransactionHistory");
 	}
 	
 	public void ShowLoginView()
 	{
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("ShowLoginView");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("ShowLoginView");
 	}
 	
 	public void ShowFacebookLogin()
 	{
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("ShowLoginFacebook");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("ShowLoginFacebook");
 	}
 	
 	public void ShowGoogleLogin()
 	{
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("ShowLoginGoogle");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("ShowLoginGoogle");
 	}
 	
 	public void ShowTwitterLogin()
 	{
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("ShowLoginTwitter");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("ShowLoginTwitter");
 	}
 
 	public void SetHidePaymentView(bool isHidePaymentView) {
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = isHidePaymentView;
-		cls_AppotaUnityHandler.CallStatic("SetHidePaymentView", args);
+		cls_GMOUnityHandler.CallStatic("SetHidePaymentView", args);
 	}
 	
 	public void InviteFacebookFriends()
 	{
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("InviteFacebookFriend");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("InviteFacebookFriend");
 	}
 	
 	public bool IsUserLoggedIn() {
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		return cls_AppotaUnityHandler.CallStatic<bool>("IsUserLoggedIn");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		return cls_GMOUnityHandler.CallStatic<bool>("IsUserLoggedIn");
 	}
 
 	public void SetCharacter(string characterName, string characterID, string serverName, string serverID) {
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[4];
 		args [0] = characterName;
 		args [1] = characterID;
 		args [2] = serverName;
 		args [3] = serverID;
-		cls_AppotaUnityHandler.CallStatic("SetCharacter", args);
+		cls_GMOUnityHandler.CallStatic("SetCharacter", args);
 	}
 	
 	/*
-	 * Return AppotaSession if logged in
+	 * Return GMOSession if logged in
 	 * */
-	public AppotaSession GetAppotaSession() {
-		return AppotaSession.Instance;
+	public GMOSession GetGMOSession() {
+		return GMOSession.Instance;
 	}
 	#endregion
 	
 	#region Payment functions
 	public void ShowPaymentView()
 	{
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("ShowPaymentView");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("ShowPaymentView");
 	}
 
 	public void ShowPaymentViewWithPackageID(string packageID)
 	{
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		
 		object[] args = new object[1];
 		args [0] = packageID;
 		
-		cls_AppotaUnityHandler.CallStatic("ShowPaymentViewWithPackageID", args);
+		cls_GMOUnityHandler.CallStatic("ShowPaymentViewWithPackageID", args);
 	}
 
 	
 	public void ClosePaymentView()
 	{
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("ClosePaymentView");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("ClosePaymentView");
 	}
 
 	public void SendStateToWrapper(string state) {
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = state;
-		cls_AppotaUnityHandler.CallStatic("SendStateToWrapper", args);
+		cls_GMOUnityHandler.CallStatic("SendStateToWrapper", args);
 	}
 	#endregion
 	
 	#region Analytics functions
 	public void SendView(string activityName) {
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = activityName;
-		cls_AppotaUnityHandler.CallStatic("SendView", args);
+		cls_GMOUnityHandler.CallStatic("SendView", args);
 	}
 	
 	public void SendEvent(string category,string action,string label) {
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[3];
 		args [0] = category;
 		args [1] = action;
 		args [2] = label;
-		cls_AppotaUnityHandler.CallStatic("SendEvent", args);
+		cls_GMOUnityHandler.CallStatic("SendEvent", args);
 	}
 	
 	public void SendEvent(string category,string action,string label, int value) {
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[4];
 		args [0] = category;
 		args [1] = action;
 		args [2] = label;
 		args [3] = value;
-		cls_AppotaUnityHandler.CallStatic("SendEvent", args);
+		cls_GMOUnityHandler.CallStatic("SendEvent", args);
 	}
 	#endregion
 	
 	#region Notification functions
 	public void SetPushGroup(string groupName) {
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = groupName;
-		cls_AppotaUnityHandler.CallStatic("SetPushGroup", args);
+		cls_GMOUnityHandler.CallStatic("SetPushGroup", args);
 	}
 	#endregion
 
 	#region Facebook App Events functions
 	public void ActivateFBAppEvent()
 	{
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("ActivateFBAppEvent");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("ActivateFBAppEvent");
 	}
 	
 	public void DeactivateFBAppEvent()
 	{
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		cls_AppotaUnityHandler.CallStatic("DeactivateFBAppEvent");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler.CallStatic("DeactivateFBAppEvent");
 	}
 
 	public void FBLogEvent(string name) {
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = name;
-		cls_AppotaUnityHandler.CallStatic("FBLogEvent", args);
+		cls_GMOUnityHandler.CallStatic("FBLogEvent", args);
 	}
 	
 	public void FBLogEventWithParameter(string name, double value, Dictionary<string, string> dictionary) {
-		cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[3];
 		args [0] = name;
 		args [1] = value;
 		args [2] = ConvertDictionaryToString(dictionary);
-		cls_AppotaUnityHandler.CallStatic("FBLogEventWithParameter", args);
+		cls_GMOUnityHandler.CallStatic("FBLogEventWithParameter", args);
 	}
 	#endregion
 
 	#region Other Functions
 	public void ConfigureAppFlyer() {
-		if (AppotaSetting.UsingAppFlyer) {
-			cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		if (GMOSetting.UsingAppFlyer) {
+			cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 			object[] args = new object[1];
-			args [0] = AppotaSetting.AppFlyerKey;
-			cls_AppotaUnityHandler.CallStatic("ConfigureAppFlyer", args);
+			args [0] = GMOSetting.AppFlyerKey;
+			cls_GMOUnityHandler.CallStatic("ConfigureAppFlyer", args);
 		}
 	}
 
 	public void ConfigureAdwords() {
-		if (AppotaSetting.UsingAdWords) {
-			cls_AppotaUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		if (GMOSetting.UsingAdWords) {
+			cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
 			object[] args = new object[4];
-			args [0] = AppotaSetting.AdWordsConversionID;
-			args [1] = AppotaSetting.AdWordsLabel;
-			args [2] = AppotaSetting.AdWordsValue;
-			args [3] = AppotaSetting.AdWordsIsRepeatable;
-			cls_AppotaUnityHandler.CallStatic("ConfigureAdwords", args);
+			args [0] = GMOSetting.AdWordsConversionID;
+			args [1] = GMOSetting.AdWordsLabel;
+			args [2] = GMOSetting.AdWordsValue;
+			args [3] = GMOSetting.AdWordsIsRepeatable;
+			cls_GMOUnityHandler.CallStatic("ConfigureAdwords", args);
 		}
 	}
 

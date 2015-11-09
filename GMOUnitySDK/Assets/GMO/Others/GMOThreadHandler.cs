@@ -3,7 +3,7 @@ using System.Collections;
 using System.Threading;
 using System;
 
-public class AppotaThreadHandler : MonoBehaviour {
+public class GMOThreadHandler : MonoBehaviour {
 
 	#if UNITY_ANDROID
 	private Thread callbackThread;
@@ -13,19 +13,19 @@ public class AppotaThreadHandler : MonoBehaviour {
 	private string lastCallbackTime = "";
 	private static bool canCallbackThreadRun = false;
 
-	private static AppotaThreadHandler _instance;
+	private static GMOThreadHandler _instance;
 	
-	// Singleton for Appota Thread handler
-	public static AppotaThreadHandler Instance
+	// Singleton for GMO Thread handler
+	public static GMOThreadHandler Instance
 	{
 		get
 		{
-			if(_instance == null) _instance = new AppotaThreadHandler();
+			if(_instance == null) _instance = new GMOThreadHandler();
 			return _instance;
 		}
 	}
 
-	// When AppotaSDK has been started, Android will start a new activity and Unity activity would be paused. 
+	// When GMOSDK has been started, Android will start a new activity and Unity activity would be paused. 
 	// So we could not callback data to Unity activity. New thread and runOnUiThread will solve this problem. 
 	public void Start() 
 	{
@@ -71,11 +71,11 @@ public class AppotaThreadHandler : MonoBehaviour {
 		GetPaymentStateFromThread ();
 
 		// Call this when we need close paymentView after success payment
-		if (AppotaSDKHandler.Instance.CloseViewAfterSuccessPayment)
+		if (GMOSDKHandler.Instance.CloseViewAfterSuccessPayment)
 			ActiveCallbackIDFromThread ();
 	}
 	
-	// Receive packageID and send PaymentState to AppotaSDK
+	// Receive packageID and send PaymentState to GMOSDK
 	void GetPaymentStateFromThread() {
 		cls_MessageFromSDK = new AndroidJavaClass("com.appota.gamesdk.v4.commons.Messages"); 
 		string pid = cls_MessageFromSDK.GetStatic<string>("pid");
@@ -88,7 +88,7 @@ public class AppotaThreadHandler : MonoBehaviour {
 		
 		if (!pidTime.Equals(lastPidTime)) {
 			lastPidTime = pidTime;
-			AppotaSDKReceiver.Instance.GetPaymentState(packageID);
+			GMOSDKReceiver.Instance.GetPaymentState(packageID);
 		}
 	}
 
@@ -104,7 +104,7 @@ public class AppotaThreadHandler : MonoBehaviour {
 
 		if (!unixTime.Equals(lastCallbackTime)) {
 			lastCallbackTime = unixTime;
-			AppotaSDKHandler.Instance.ClosePaymentView();
+			GMOSDKHandler.Instance.ClosePaymentView();
 		}
 	}
 	

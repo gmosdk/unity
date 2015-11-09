@@ -1,5 +1,5 @@
 ﻿
-public class AppotaFBEventName {
+public class GMOFBEventName {
 
 	public const string Rated = "fb_mobile_rate";
 	

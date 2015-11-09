@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
 using System;
-using Appota;
+using GMO;
 
-[CustomEditor(typeof(AppotaSetting))]
+[CustomEditor(typeof(GMOSetting))]
 public class IDController : EditorWindow {
 
 	static string _facebookID;
@@ -30,66 +30,66 @@ public class IDController : EditorWindow {
 	static string _adWordsValue;
 	static bool _adWordsIsRepeatable;
 
-	private AppotaSetting instance;
+	private GMOSetting instance;
 	static bool isUsingOnClanSDK = false;
-	//static bool isUsingAppotaSDK = false;
+	//static bool isUsingGMOSDK = false;
 	static int minHeight;
 	static int minWidth;
 
-	public Texture2D appotaLogo;
+	public Texture2D gmoLogo;
 	
 	private static IDController windows;
 	void OnEnable()
 	{
-		appotaLogo = AssetDatabase.LoadAssetAtPath("Assets/Appota/Resources/appota_logo.png", typeof(Texture2D)) as Texture2D;
+		gmoLogo = AssetDatabase.LoadAssetAtPath("Assets/GMO/Resources/gmo_logo.png", typeof(Texture2D)) as Texture2D;
 		
 	}
 	
-	[MenuItem ("Appota/Configurations")]
+	[MenuItem ("GMO/Configurations")]
 	static void Init(){
 		isUsingOnClanSDK = System.Type.GetType("OnClanSDKHandler,Assembly-CSharp") != null;
-		//isUsingAppotaSDK = System.Type.GetType("AppotaSDKHandler,Assembly-CSharp") != null;
+		//isUsingGMOSDK = System.Type.GetType("GMOSDKHandler,Assembly-CSharp") != null;
 		
-		windows = GetWindow(typeof (IDController), false, "Appota", true) as IDController;
+		windows = GetWindow(typeof (IDController), false, "GMO", true) as IDController;
 
-		windows.minSize = new Vector2(400, 550);
-		windows.maxSize = new Vector2(600, 700);
+		windows.minSize = new Vector2(400, 400);
+		windows.maxSize = new Vector2(600, 600);
 
 		windows.Show();
 		
 		EditorWindow.GetWindow(typeof (IDController)).Show();
 
-		_facebookID = AppotaSetting.FacebookAppID;
-		_facebookSecretID = AppotaSetting.FacebookAppSecretID;
-		_facebookAppLinkUrl = AppotaSetting.FacebookAppLinkUrl;
-		_twitterKey = AppotaSetting.TwitterConsumerKey;
-		_twitterSecret = AppotaSetting.TwitterConsumerSecret;
-		_googleID = AppotaSetting.GoogleClientId;
-		_googleSecretID = AppotaSetting.GoogleClientSecretId;
-		_gameID = AppotaSetting.GameID;
-		_inAppApiKey = AppotaSetting.InAppApiKey;
+		_facebookID = GMOSetting.FacebookAppID;
+		_facebookSecretID = GMOSetting.FacebookAppSecretID;
+		_facebookAppLinkUrl = GMOSetting.FacebookAppLinkUrl;
+		_twitterKey = GMOSetting.TwitterConsumerKey;
+		_twitterSecret = GMOSetting.TwitterConsumerSecret;
+		_googleID = GMOSetting.GoogleClientId;
+		_googleSecretID = GMOSetting.GoogleClientSecretId;
+		_gameID = GMOSetting.GameID;
+		_inAppApiKey = GMOSetting.InAppApiKey;
 
-		_usingAppFlyer = AppotaSetting.UsingAppFlyer;
-		_appleAppID = AppotaSetting.AppleAppID;
-		_appFlyerKey = AppotaSetting.AppFlyerKey;
+		_usingAppFlyer = GMOSetting.UsingAppFlyer;
+		_appleAppID = GMOSetting.AppleAppID;
+		_appFlyerKey = GMOSetting.AppFlyerKey;
 
-		_usingAdWords = AppotaSetting.UsingAdWords;
-		_adWordsConversionID = AppotaSetting.AdWordsConversionID;
-		_adWordsLabel = AppotaSetting.AdWordsLabel;
-		_adWordsValue = AppotaSetting.AdWordsValue;
-		_adWordsIsRepeatable = AppotaSetting.AdWordsIsRepeatable;
+		_usingAdWords = GMOSetting.UsingAdWords;
+		_adWordsConversionID = GMOSetting.AdWordsConversionID;
+		_adWordsLabel = GMOSetting.AdWordsLabel;
+		_adWordsValue = GMOSetting.AdWordsValue;
+		_adWordsIsRepeatable = GMOSetting.AdWordsIsRepeatable;
 	}
 	
 	void OnGUI()
 	{
-		GUILayout.Label(appotaLogo,GUILayout.MaxHeight(120), GUILayout.MaxWidth(400));
+		//GUILayout.Label(gmoLogo,GUILayout.MaxHeight(120), GUILayout.MaxWidth(400));
 		
-		GUILayout.Space(20);
-		GUILayout.Label ("Version: " + AppotaSDKHandler.APPOTA_VERSION, EditorStyles.label);
+		GUILayout.Space(10);
+		GUILayout.Label ("Version: " + GMOSDKHandler.GMO_VERSION, EditorStyles.label);
 		
 		EditorGUILayout.BeginVertical();
 		
-		if (PenaltyEditorTools.DrawHeader("Appota Settings"))
+		if (PenaltyEditorTools.DrawHeader("GMO Settings"))
 		{
 			_inAppApiKey = EditorGUILayout.TextField("API Key", _inAppApiKey);
 
@@ -175,25 +175,25 @@ public class IDController : EditorWindow {
 	
 	void SaveSetting()
 	{
-		AppotaSetting.FacebookAppID = _facebookID;
-		AppotaSetting.FacebookAppSecretID = _facebookSecretID;
-		AppotaSetting.FacebookAppLinkUrl = _facebookAppLinkUrl;
-		AppotaSetting.TwitterConsumerKey = _twitterKey;
-		AppotaSetting.TwitterConsumerSecret = _twitterSecret;
-		AppotaSetting.GoogleClientId = _googleID;
-		AppotaSetting.GoogleClientSecretId = _googleSecretID;
-		AppotaSetting.InAppApiKey = _inAppApiKey;
-		AppotaSetting.GameID = _gameID;
+		GMOSetting.FacebookAppID = _facebookID;
+		GMOSetting.FacebookAppSecretID = _facebookSecretID;
+		GMOSetting.FacebookAppLinkUrl = _facebookAppLinkUrl;
+		GMOSetting.TwitterConsumerKey = _twitterKey;
+		GMOSetting.TwitterConsumerSecret = _twitterSecret;
+		GMOSetting.GoogleClientId = _googleID;
+		GMOSetting.GoogleClientSecretId = _googleSecretID;
+		GMOSetting.InAppApiKey = _inAppApiKey;
+		GMOSetting.GameID = _gameID;
 
-		AppotaSetting.UsingAppFlyer = _usingAppFlyer;
-		AppotaSetting.AppleAppID = _appleAppID;
-		AppotaSetting.AppFlyerKey = _appFlyerKey;
+		GMOSetting.UsingAppFlyer = _usingAppFlyer;
+		GMOSetting.AppleAppID = _appleAppID;
+		GMOSetting.AppFlyerKey = _appFlyerKey;
 		
-		AppotaSetting.UsingAdWords = _usingAdWords;
-		AppotaSetting.AdWordsConversionID = _adWordsConversionID;
-		AppotaSetting.AdWordsLabel = _adWordsLabel;
-		AppotaSetting.AdWordsValue = _adWordsValue;
-		AppotaSetting.AdWordsIsRepeatable = _adWordsIsRepeatable;
+		GMOSetting.UsingAdWords = _usingAdWords;
+		GMOSetting.AdWordsConversionID = _adWordsConversionID;
+		GMOSetting.AdWordsLabel = _adWordsLabel;
+		GMOSetting.AdWordsValue = _adWordsValue;
+		GMOSetting.AdWordsIsRepeatable = _adWordsIsRepeatable;
 		ManifestMod.GenerateManifest();
 		Debug.Log("Complete setting!!!");
 		

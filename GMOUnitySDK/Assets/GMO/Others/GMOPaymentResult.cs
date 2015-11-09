@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using SimpleJSON;
 
-public class AppotaPaymentResult {
+public class GMOPaymentResult {
 
 	private string _paymentPackageID;
 	private float _paymentAmount;
@@ -12,7 +12,7 @@ public class AppotaPaymentResult {
 	private string _paymentProductID;
 	private string _paymentMethodINAPP;
 
-	public AppotaPaymentResult(string transactionResult) {
+	public GMOPaymentResult(string transactionResult) {
 		var json = JSON.Parse(transactionResult);
 		if (json["transactionId"] != null) {
 			_paymentPackageID = json["packageID"].Value;

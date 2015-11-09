@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.IO;
 
-namespace UnityEditor.XCodeEditor.Appota 
+namespace UnityEditor.XCodeEditor.GMO 
 {
 	public class XCMod 
 	{

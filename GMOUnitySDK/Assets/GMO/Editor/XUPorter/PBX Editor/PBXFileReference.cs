@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace UnityEditor.XCodeEditor.Appota
+namespace UnityEditor.XCodeEditor.GMO
 {
 	public class PBXFileReference : PBXObject
 	{

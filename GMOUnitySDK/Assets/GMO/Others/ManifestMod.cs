@@ -7,13 +7,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Appota 
+namespace GMO 
 {
 	public class ManifestMod
 	{
-		// Appota Meta Data Element 
-		public const string AppotaApikeyMetaDataName = "com.appota.apiKey";
-		public const string AppotaGameIDMetaDataName = "com.onclan.gameId";
+		// GMO Meta Data Element 
+		public const string GMOApikeyMetaDataName = "com.appota.apiKey";
+		public const string GMOGameIDMetaDataName = "com.onclan.gameId";
 		
 		// Social Elements Name
 		public const string LoginActivityName = "com.appota.facebook.LoginActivity";
@@ -26,8 +26,8 @@ namespace Appota
 		public const string OnClanLoginActivityName = "com.onclan.android.home.LoginActivity";
 		public const string OnClanChatServiceName = "com.onclan.android.chat.mqtt.ChatService";
 		
-		// Appota Elements Name
-		public const string AppotaBaseActivityName = "com.appota.gamesdk.v4.ui.BaseSDKActivty";
+		// GMO Elements Name
+		public const string GMOBaseActivityName = "com.appota.gamesdk.v4.ui.BaseSDKActivty";
 
 		public const string AppsFlyerReceiverName = "com.appsflyer.MultipleInstallBroadcastReceiver";
 		
@@ -126,7 +126,7 @@ namespace Appota
 				appIdElement.SetAttribute("name", ns, ApplicationIdMetaDataName);
 				dict.AppendChild(appIdElement);
 			}
-			appIdElement.SetAttribute("value", ns, "\\ " + AppotaSetting.FacebookAppID); // stupid hack to be string format
+			appIdElement.SetAttribute("value", ns, "\\ " + GMOSetting.FacebookAppID); // stupid hack to be string format
 			
 			//add the TwitterConsumerKey
 			//<meta-data android:name="com.appota.gamesdk.twitter.consumer.key" android:value="YOUR_CONSUMER_KEY" />
@@ -137,7 +137,7 @@ namespace Appota
 				TwitterKeyElement.SetAttribute("name", ns, TwitterKeyMetaDataName);
 				dict.AppendChild(TwitterKeyElement);
 			}
-			TwitterKeyElement.SetAttribute("value", ns, "" + AppotaSetting.TwitterConsumerKey); 
+			TwitterKeyElement.SetAttribute("value", ns, "" + GMOSetting.TwitterConsumerKey); 
 			
 			//add the TwitterConsumerSecret
 			//<meta-data android:name="com.appota.gamesdk.twitter.consumer.secret" android:value="YOUR_SECRET_KEY" />
@@ -148,49 +148,49 @@ namespace Appota
 				TwitterSecretElement.SetAttribute("name", ns, TwitterSecretMetaDataName);
 				dict.AppendChild(TwitterSecretElement);
 			}
-			TwitterSecretElement.SetAttribute("value", ns, "" + AppotaSetting.TwitterConsumerSecret); 
+			TwitterSecretElement.SetAttribute("value", ns, "" + GMOSetting.TwitterConsumerSecret); 
 			#endregion
 			
-			#region Appota Meta Data Elements
+			#region GMO Meta Data Elements
 			// Add Apikey 
-			XmlElement AppotaApikeyElement = FindElementWithAndroidName("meta-data", "name", ns, AppotaApikeyMetaDataName, dict);
-			if (AppotaApikeyElement == null)
+			XmlElement GMOApikeyElement = FindElementWithAndroidName("meta-data", "name", ns, GMOApikeyMetaDataName, dict);
+			if (GMOApikeyElement == null)
 			{
-				AppotaApikeyElement = doc.CreateElement("meta-data");
-				AppotaApikeyElement.SetAttribute("name", ns, AppotaApikeyMetaDataName);
-				dict.AppendChild(AppotaApikeyElement);
+				GMOApikeyElement = doc.CreateElement("meta-data");
+				GMOApikeyElement.SetAttribute("name", ns, GMOApikeyMetaDataName);
+				dict.AppendChild(GMOApikeyElement);
 			}
-			AppotaApikeyElement.SetAttribute("value", ns, "" + AppotaSetting.InAppApiKey); 
+			GMOApikeyElement.SetAttribute("value", ns, "" + GMOSetting.InAppApiKey); 
 			
 			// Add GameID 
-			XmlElement AppotaGameIDElement = FindElementWithAndroidName("meta-data", "name", ns, AppotaGameIDMetaDataName, dict);
-			if (AppotaGameIDElement == null)
+			XmlElement GMOGameIDElement = FindElementWithAndroidName("meta-data", "name", ns, GMOGameIDMetaDataName, dict);
+			if (GMOGameIDElement == null)
 			{
-				AppotaGameIDElement = doc.CreateElement("meta-data");
-				AppotaGameIDElement.SetAttribute("name", ns, AppotaGameIDMetaDataName);
-				dict.AppendChild(AppotaGameIDElement);
+				GMOGameIDElement = doc.CreateElement("meta-data");
+				GMOGameIDElement.SetAttribute("name", ns, GMOGameIDMetaDataName);
+				dict.AppendChild(GMOGameIDElement);
 			}
-			AppotaGameIDElement.SetAttribute("value", ns, "" + AppotaSetting.GameID); 
+			GMOGameIDElement.SetAttribute("value", ns, "" + GMOSetting.GameID); 
 			
 			#endregion
 			
 			// Creating Elements is depend on which SDKs was used 
-			if (System.Type.GetType("AppotaSDKHandler,Assembly-CSharp") != null && System.Type.GetType("OnClanSDKHandler,Assembly-CSharp") != null) {
-				CreateAppotaElements(doc, dict, ns);
+			if (System.Type.GetType("GMOSDKHandler,Assembly-CSharp") != null && System.Type.GetType("OnClanSDKHandler,Assembly-CSharp") != null) {
+				CreateGMOElements(doc, dict, ns);
 				CreateOnClanElements(doc, dict, ns);
 			}
-			else if (System.Type.GetType("AppotaSDKHandler,Assembly-CSharp") != null) {
-				CreateAppotaElements(doc, dict, ns);
+			else if (System.Type.GetType("GMOSDKHandler,Assembly-CSharp") != null) {
+				CreateGMOElements(doc, dict, ns);
 				RemoveOnClanElements(dict, ns);
 			}
 			else if (System.Type.GetType("OnClanSDKHandler,Assembly-CSharp") != null) {
 				CreateOnClanElements(doc, dict, ns);
-				RemoveAppotaElements(dict, ns);
+				RemoveGMOElements(dict, ns);
 			}
 			
 			Debug.Log("Complete setting manifest!!!");
 
-			if (AppotaSetting.UsingAppFlyer)
+			if (GMOSetting.UsingAppFlyer)
 				CreateAppsflyerElements (doc, dict, ns);
 			else
 				RemoveAppsflyerElements (dict, ns);
@@ -211,31 +211,31 @@ namespace Appota
 		}
 		#endregion
 		
-		#region AppotaSDK Activity Elements 
-		private static void CreateAppotaElements(XmlDocument doc, XmlNode dict, string ns)
+		#region GMOSDK Activity Elements 
+		private static void CreateGMOElements(XmlDocument doc, XmlNode dict, string ns)
 		{
-			XmlElement AppotaBaseActivityElement = FindElementWithAndroidName("activity", "name", ns, AppotaBaseActivityName, dict);
-			if (AppotaBaseActivityElement == null)
+			XmlElement GMOBaseActivityElement = FindElementWithAndroidName("activity", "name", ns, GMOBaseActivityName, dict);
+			if (GMOBaseActivityElement == null)
 			{
-				AppotaBaseActivityElement = CreateBaseActivityElement(doc, ns);
-				dict.AppendChild(AppotaBaseActivityElement);
+				GMOBaseActivityElement = CreateBaseActivityElement(doc, ns);
+				dict.AppendChild(GMOBaseActivityElement);
 			}
 		}
 		
-		private static void RemoveAppotaElements(XmlNode dict, string ns)
+		private static void RemoveGMOElements(XmlNode dict, string ns)
 		{
-			XmlElement AppotaBaseActivityElement = FindElementWithAndroidName("activity", "name", ns, AppotaBaseActivityName, dict);
-			if (AppotaBaseActivityElement != null)
+			XmlElement GMOBaseActivityElement = FindElementWithAndroidName("activity", "name", ns, GMOBaseActivityName, dict);
+			if (GMOBaseActivityElement != null)
 			{
-				dict.RemoveChild((XmlNode)AppotaBaseActivityElement);
+				dict.RemoveChild((XmlNode)GMOBaseActivityElement);
 			}
 		}
 		
 		private static XmlElement CreateBaseActivityElement(XmlDocument doc, string ns)
 		{
-			//<activity android:name="com.appota.gamesdk.UserActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTask" android:theme="@style/Theme.Appota.GameSDK" android:windowSoftInputMode="adjustPan">
+			//<activity android:name="com.appota.gamesdk.UserActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTask" android:theme="@style/Theme.GMO.GameSDK" android:windowSoftInputMode="adjustPan">
 			XmlElement activityElement = doc.CreateElement("activity");
-			activityElement.SetAttribute("name", ns, AppotaBaseActivityName);
+			activityElement.SetAttribute("name", ns, GMOBaseActivityName);
 			activityElement.SetAttribute("configChanges", ns, "orientation|keyboardHidden|screenSize");
 			activityElement.SetAttribute("theme", ns, "@android:style/Theme.Dialog");
 			activityElement.InnerText = "\n    ";  //be extremely anal to make diff tools happy

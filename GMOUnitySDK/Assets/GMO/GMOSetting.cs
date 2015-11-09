@@ -7,35 +7,35 @@ using UnityEditor;
 [InitializeOnLoad]
 #endif
 
-public class AppotaSetting : ScriptableObject
+public class GMOSetting : ScriptableObject
 {
 
-	const string appotaSettingsAssetName = "AppotaSettings";
-	const string appotaSettingsPath = "Appota/Resources";
-	const string appotaSettingsAssetExtension = ".asset";
+	const string gmoSettingsAssetName = "GMOSettings";
+	const string gmoSettingsPath = "GMO/Resources";
+	const string gmoSettingsAssetExtension = ".asset";
 	
-	private static AppotaSetting instance;
+	private static GMOSetting instance;
 	
-	static AppotaSetting Instance
+	static GMOSetting Instance
 	{
 		get
 		{
 			if (instance == null)
 			{
-				instance = Resources.Load(appotaSettingsAssetName) as AppotaSetting;
+				instance = Resources.Load(gmoSettingsAssetName) as GMOSetting;
 				if (instance == null)
 				{
 					// If not found, autocreate the asset object.
-					instance = CreateInstance<AppotaSetting>();
+					instance = CreateInstance<GMOSetting>();
 					#if UNITY_EDITOR
-					string properPath = Path.Combine(Application.dataPath, appotaSettingsPath);
+					string properPath = Path.Combine(Application.dataPath, gmoSettingsPath);
 					if (!Directory.Exists(properPath))
 					{
-						AssetDatabase.CreateFolder("Assets/Appota", "Resources");
+						AssetDatabase.CreateFolder("Assets/GMO", "Resources");
 					}
 					
-					string fullPath = Path.Combine(Path.Combine("Assets", appotaSettingsPath),
-					                               appotaSettingsAssetName + appotaSettingsAssetExtension
+					string fullPath = Path.Combine(Path.Combine("Assets", gmoSettingsPath),
+					                               gmoSettingsAssetName + gmoSettingsAssetExtension
 					                               );
 					AssetDatabase.CreateAsset(instance, fullPath);
 					#endif
