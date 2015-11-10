@@ -249,6 +249,10 @@ extern "C" {
 }
 
 - (void) didPaymentSuccessWithResult:(GMOPaymentResult*) paymentResult withPackage:(NSString *) packageID {
+    if (!packageID.length){
+        packageID = @"";
+    }
+
     NSString *json = @"{";
     json = [json stringByAppendingString:@"\"packageID\":\""];
     json = [json stringByAppendingString:packageID];
