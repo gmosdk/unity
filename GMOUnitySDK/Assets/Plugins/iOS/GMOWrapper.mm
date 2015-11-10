@@ -280,10 +280,15 @@ extern "C" {
     
     UnitySendMessage("GMOSDKReceiver", "OnPaymentSuccess", [json UTF8String]);
     
-    // Purchase
+    // Purchase log
+    NSString *otherPackageID = @"";
+    if (paymentResult.packageID){
+        otherPackageID = paymentResult.packageID;
+    }
+    
     [FBSDKAppEvents logPurchase:[paymentResult getAmountPaymentResult] currency:[paymentResult currency]
                      parameters:@{FBSDKAppEventParameterNameContentType:[paymentResult type],
-                                  FBSDKAppEventParameterNameContentID:[paymentResult packageID]}];
+                                  FBSDKAppEventParameterNameContentID:otherPackageID}];
 }
 
 - (void) didPaymentErrorWithMessage:(NSString *)message withError:(NSError *)error {
