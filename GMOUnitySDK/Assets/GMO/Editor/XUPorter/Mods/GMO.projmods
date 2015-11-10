@@ -12,6 +12,7 @@
                     "MessageUI.framework",
                     "AdSupport.framework",
                     "WebKit.framework",
+                    "SafariServices.framework",
                     "CoreTelephony.framework"],
     "headerpaths": ["iOS/GMO/**"],
     "files":   [],
