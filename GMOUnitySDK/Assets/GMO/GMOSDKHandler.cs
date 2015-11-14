@@ -8,7 +8,7 @@ using System.Text;
 public class GMOSDKHandler {
 	
 	private static GMOSDKHandler _instance;
-	public static string GMO_VERSION = "1.0.1a";
+	public static string GMO_VERSION = "1.0.1b";
 
 	private bool closeViewAfterSuccessPayment = false;
 	
