@@ -37,7 +37,7 @@ public class GMOSDKReceiver : MonoBehaviour {
 		// Get User info from GMOSession
 		GMOSession gmoSessionObj = new GMOSession(gmoSession);
 		GMOSession.Instance.UpdateInstance(gmoSessionObj);
-		
+
 		Debug.Log ("GMOSDK: Did login");
 	}
 	

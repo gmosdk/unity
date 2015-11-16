@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: GMOSettings
   m_EditorClassIdentifier: Assembly-CSharp::GMOSetting
-  facebookAppID: 355161784671889
+  facebookAppID: 435546253225772
   facebookAppSecretID: 
   facebookAppLinkUrl: 
   twitterConsumerKey: 8JssO2TP6DPUvsMxIiuBA

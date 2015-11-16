@@ -130,6 +130,31 @@ extern "C" {
         return [GMOGameSDK isUserLoggedIn];
     }
     
+    const char* getUserInfo(){
+        GMOUserLoginResult *userLoginResult = [GMOGameSDK getUserInfo];
+        NSString *emptyString = @"";
+        if (!userLoginResult.accessToken) {
+            return [emptyString UTF8String];
+        }
+        NSString *email = userLoginResult.email ? userLoginResult.email : @"";
+        NSString *json = @"{";
+        json = [json stringByAppendingString:@"\"accessToken\":\""];
+        json = [json stringByAppendingString:userLoginResult.accessToken];
+        json = [json stringByAppendingString:@"\","];
+        json = [json stringByAppendingString:@"\"email\":\""];
+        json = [json stringByAppendingString:email];
+        json = [json stringByAppendingString:@"\","];
+        json = [json stringByAppendingString:@"\"userId\":\""];
+        json = [json stringByAppendingString:userLoginResult.userID];
+        json = [json stringByAppendingString:@"\","];
+        json = [json stringByAppendingString:@"\"username\":\""];
+        json = [json stringByAppendingString:userLoginResult.userName];
+        json = [json stringByAppendingString:@"\","];
+        json = [json stringByAppendingString:@"}"];
+        
+        return [json UTF8String];
+    }
+    
     // Payment Functions
     const void showPaymentView(){
         [GMOGameSDK showPaymentView];
