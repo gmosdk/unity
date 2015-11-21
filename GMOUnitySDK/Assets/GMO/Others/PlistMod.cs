@@ -139,10 +139,14 @@ namespace GMO
 			}
 
 			// Support for iOS 9
-			if(!HasKey(dict, "NSAllowsArbitraryLoads"))
+			if(!HasKey(dict, "NSAppTransportSecurity"))
 			{
-				AddChildElement(doc, dict, "key", "NSAllowsArbitraryLoads");
-				AddChildElement(doc, dict, "true");
+				AddChildElement(doc, dict, "key", "NSAppTransportSecurity");
+				var urlSchemeDict = AddChildElement(doc, dict, "dict");
+				{
+					AddChildElement(doc, urlSchemeDict, "key", "NSAllowsArbitraryLoads");
+					AddChildElement(doc, urlSchemeDict, "true");
+				}
             }
 			
 			

@@ -19,5 +19,5 @@
     "folders": [],    
     "excludes": ["^.*.meta$", "^.*.mdown$", "^.*.pdf$"],
     "compiler_flags": [],
-    "linker_flags": ["-lc++", "$inherited", "-lz", "-ObjC"]
+    "linker_flags": ["-lc++", "$inherited", "-lz", "-lsqlite3", "-ObjC"]
 }
