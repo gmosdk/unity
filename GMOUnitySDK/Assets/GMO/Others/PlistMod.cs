@@ -148,7 +148,18 @@ namespace GMO
 					AddChildElement(doc, urlSchemeDict, "true");
 				}
             }
-			
+
+			if(!HasKey(dict, "LSApplicationQueriesSchemes"))
+			{
+				AddChildElement(doc, dict, "key", "LSApplicationQueriesSchemes");
+				var lsSchemeArray = AddChildElement(doc, dict, "array");
+				{
+					AddChildElement(doc, lsSchemeArray, "string", "fbapi");
+					AddChildElement(doc, lsSchemeArray, "string", "fb-messenger-api");
+					AddChildElement(doc, lsSchemeArray, "string", "fbauth2");
+					AddChildElement(doc, lsSchemeArray, "string", "fbshareextension");
+				}
+			}
 			
 			//here's how the custom url scheme should end up looking
 			/*

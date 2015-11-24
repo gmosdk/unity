@@ -8,7 +8,7 @@ using System.Text;
 public class GMOSDKHandler {
 	
 	private static GMOSDKHandler _instance;
-	public static string GMO_VERSION = "1.0.1d";
+	public static string GMO_VERSION = "1.0.1e";
 
 	private bool closeViewAfterSuccessPayment = false;
 	
@@ -227,12 +227,9 @@ public class GMOSDKHandler {
 	 * */
 	public GMOSession GetGMOSession() {
 		// Get User info from GMOSession
-		string gmoSession = getUserInfo ();
-		GMOSession gmoSessionObj = new GMOSession(gmoSession);
-		GMOSession.Instance.UpdateInstance(gmoSessionObj);
 		return GMOSession.Instance;
 	}
-	
+
 	/*
 	 * Set character function to support character management on web
 	 * */
@@ -523,11 +520,6 @@ public class GMOSDKHandler {
 	 * Return GMOSession if logged in
 	 * */
 	public GMOSession GetGMOSession() {
-		// Get User info from GMOSession
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
-		string gmoSession = cls_GMOUnityHandler.CallStatic<string>("GetUserInfo");
-		GMOSession gmoSessionObj = new GMOSession(gmoSession);
-		GMOSession.Instance.UpdateInstance(gmoSessionObj);
 		return GMOSession.Instance;
 	}
 	#endregion

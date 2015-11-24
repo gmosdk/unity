@@ -105,9 +105,9 @@ public class IDController : EditorWindow {
 			_facebookID = EditorGUILayout.TextField("Facebook ID", _facebookID);
 			#if UNITY_WP8
 			_facebookSecretID = EditorGUILayout.TextField("Facebook Secret ID", _facebookSecretID);
-			#elif UNITY_IOS
-			_facebookAppLinkUrl = EditorGUILayout.TextField("Facebook App Link URL", _facebookAppLinkUrl);
 			#endif
+			_facebookAppLinkUrl = EditorGUILayout.TextField("Facebook App Link URL", _facebookAppLinkUrl);
+
 			_twitterKey = EditorGUILayout.TextField("Twitter Key", _twitterKey);
 			_twitterSecret = EditorGUILayout.TextField("Twitter Secret", _twitterSecret);
 			_googleID = EditorGUILayout.TextField("Google Client ID", _googleID);

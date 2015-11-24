@@ -13,26 +13,30 @@ public class GMOSession {
 	private static GMOSession _instance;
 
 	public GMOSession(string gmoSession) {
-		var json = JSON.Parse(gmoSession);
-		if (json["accessToken"] != null && json["userId"] != null) {
-			_gmoAccessToken = json["accessToken"].Value;
-			_gmoEmail = json["email"].Value;
-			_gmoExpireDate = json["expireDate"].Value;
-			_gmoRefreshToken = json["refreshToken"].Value;
-			_gmoUserId = json["userId"].Value;
-			_gmoUsername = json["username"].Value;
-		} 
-		else {
-			_gmoAccessToken = "";
-			_gmoEmail = "";
-			_gmoExpireDate = "";
-			_gmoRefreshToken = "";
-			_gmoUserId = "";
-			_gmoUsername = "";
+		if (string.IsNullOrEmpty (gmoSession)) {
+			InitializeDefault();
+		} else {
+			var json = JSON.Parse(gmoSession);
+		
+			if (json["accessToken"] != null && json["userId"] != null) {
+				_gmoAccessToken = json["accessToken"].Value;
+				_gmoEmail = json["email"].Value;
+				_gmoExpireDate = json["expireDate"].Value;
+				_gmoRefreshToken = json["refreshToken"].Value;
+				_gmoUserId = json["userId"].Value;
+				_gmoUsername = json["username"].Value;
+			} 
+			else {
+					InitializeDefault ();
+			}
 		}
 	}
 
 	public GMOSession(){
+		InitializeDefault ();
+	}
+
+	private void InitializeDefault(){
 		_gmoAccessToken = "";
 		_gmoEmail = "";
 		_gmoExpireDate = "";
@@ -52,7 +56,12 @@ public class GMOSession {
 	}
 
 	public void UpdateInstance(GMOSession instance) {
-		_instance = instance;
+		this._gmoAccessToken = instance.AccessToken;
+		this._gmoEmail = instance.Email;
+		this._gmoExpireDate = instance.ExpireDate;
+		this._gmoRefreshToken = instance.RefreshToken;
+		this._gmoUserId = instance.UserID;
+		this._gmoUsername = instance.UserName;
 	}
 
 

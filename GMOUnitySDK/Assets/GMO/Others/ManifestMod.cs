@@ -17,6 +17,8 @@ namespace GMO
 		
 		// Social Elements Name
 		public const string LoginActivityName = "com.appota.facebook.LoginActivity";
+		public const string FacebookActivityName = "com.appota.facebook.FacebookActivity";
+		public const string ApplicationLinkMetaDataName = "FacebookAppLinkUrl";
 		public const string ApplicationIdMetaDataName = "com.facebook.sdk.ApplicationId";
 		public const string TwitterKeyMetaDataName = "com.appota.twitter.consumer.key";
 		public const string TwitterSecretMetaDataName = "com.appota.twitter.consumer.secret";
@@ -109,12 +111,20 @@ namespace GMO
 			string ns = dict.GetNamespaceOfPrefix("android");
 			
 			#region Modify Social Elements 
-			//add the login activity
+			//add the facebook login activity
 			XmlElement loginElement = FindElementWithAndroidName("activity", "name", ns, LoginActivityName, dict);
 			if (loginElement == null)
 			{
 				loginElement = CreateFBLoginElement(doc, ns);
 				dict.AppendChild(loginElement);
+			}
+
+			//add the facebook activity
+			XmlElement facebookActivityElement = FindElementWithAndroidName("activity", "name", ns, FacebookActivityName, dict);
+			if (facebookActivityElement == null)
+			{
+				facebookActivityElement = CreateFBActivityElement(doc, ns);
+				dict.AppendChild(facebookActivityElement);
 			}
 			
 			//add the app id
@@ -127,6 +137,17 @@ namespace GMO
 				dict.AppendChild(appIdElement);
 			}
 			appIdElement.SetAttribute("value", ns, "\\ " + GMOSetting.FacebookAppID); // stupid hack to be string format
+
+			//add the fb app link
+			//<meta-data android:name="FacebookAppLinkUrl" android:value="your_facebook_app_link" />
+			XmlElement appLinkElement = FindElementWithAndroidName("meta-data", "name", ns, ApplicationLinkMetaDataName, dict);
+			if (appLinkElement == null)
+			{
+				appLinkElement = doc.CreateElement("meta-data");
+				appLinkElement.SetAttribute("name", ns, ApplicationLinkMetaDataName);
+				dict.AppendChild(appLinkElement);
+			}
+			appLinkElement.SetAttribute("value", ns, GMOSetting.FacebookAppLinkUrl); 
 			
 			//add the TwitterConsumerKey
 			//<meta-data android:name="com.appota.gamesdk.twitter.consumer.key" android:value="YOUR_CONSUMER_KEY" />
@@ -205,6 +226,17 @@ namespace GMO
 			XmlElement activityElement = doc.CreateElement("activity");
 			activityElement.SetAttribute("name", ns, LoginActivityName);
 			activityElement.SetAttribute("label", ns, "@string/app_name");
+			activityElement.SetAttribute("theme", ns, "@android:style/Theme.Translucent.NoTitleBar");
+			activityElement.InnerText = "\n    ";  //be extremely anal to make diff tools happy
+			return activityElement;
+		}
+
+		private static XmlElement CreateFBActivityElement(XmlDocument doc, string ns)
+		{
+			//<activity android:name="com.facebook.LoginActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:label="@string/app_name" />
+			XmlElement activityElement = doc.CreateElement("activity");
+			activityElement.SetAttribute("name", ns, FacebookActivityName);
+			activityElement.SetAttribute("configChanges", ns, "keyboard|keyboardHidden|screenLayout|screenSize|orientation");
 			activityElement.SetAttribute("theme", ns, "@android:style/Theme.Translucent.NoTitleBar");
 			activityElement.InnerText = "\n    ";  //be extremely anal to make diff tools happy
 			return activityElement;

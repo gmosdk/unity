@@ -132,9 +132,9 @@ extern "C" {
     
     const char* getUserInfo(){
         GMOUserLoginResult *userLoginResult = [GMOGameSDK getUserInfo];
-        NSString *emptyString = @"";
-        if (!userLoginResult.accessToken) {
-            return [emptyString UTF8String];
+        NSString *emptyJson = @"{}";
+        if (!userLoginResult) {
+            return [emptyJson UTF8String];
         }
         NSString *email = userLoginResult.email ? userLoginResult.email : @"";
         NSString *json = @"{";

@@ -21,11 +21,6 @@ public class GUIController : MonoBehaviour {
 		GMOSDKHandler.Instance.SetKeepLoginSession(true);
 		GMOSDKHandler.Instance.SetKeepCardPaymentPackageID(true);
 
-		if (GMOSDKHandler.Instance.IsUserLoggedIn()){
-			GMOSession _gmoSession = GMOSDKHandler.Instance.GetGMOSession();
-			Debug.Log("GMOSession Token: " + _gmoSession.AccessToken);
-			Debug.Log("GMOSession UserID: " + _gmoSession.UserID);
-		}
 		#endif
 
 	}
@@ -78,7 +73,7 @@ public class GUIController : MonoBehaviour {
 			if(GUI.Button(new Rect(ScreenWidth / 3, 90 + 5 * ScreenHeight / 10,ScreenWidth / 3,ScreenHeight / 10), "Payment With Package", customButton)) {
 				GMOSDKHandler.Instance.ShowPaymentViewWithPackageID ("app.pkid.tym4K");
 			}
-
 		}
+
 	}
 }
