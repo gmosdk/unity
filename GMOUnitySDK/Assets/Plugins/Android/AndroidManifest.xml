@@ -24,10 +24,7 @@
       <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
       <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="false" />
     </activity>
-    <activity android:name="com.appota.gamesdk.v4.core.AppotaGameSDK" android:configChanges="screenSize|orientation|keyboardHidden" android:theme="@android:style/Theme.Dialog">
-    </activity>
-    <!-- Declare Login Activity for Facebook login -->
-    <activity android:name="com.appota.gamesdk.v4.ui.BaseSDKActivty" android:configChanges="screenSize|orientation|keyboardHidden" android:theme="@android:style/Theme.Dialog">
+    <activity android:name="com.appota.gamesdk.v4.ui.BaseSDKActivty" android:theme="@android:style/Theme.Dialog">
     </activity>
     <!-- android:theme="@android:style/Theme.Dialog" -->
     <!-- Declare Login Activity for Facebook login -->
