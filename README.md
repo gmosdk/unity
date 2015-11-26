@@ -1,6 +1,8 @@
 # GMO SDK
 
 ## Upgrade Unity SDK
+> **Important**: Remove all files, folders in `Unity Project/Library` before upgrade SDK. Some cache files contain string `Appota`.
+
 - Please import new `GMOUnitySDK.unitypackage` file to upgrade
 - Class `AppotaSDKHandler` has been changed to `GMOSDKHandler`
 - Class `AppotaSDKReciever` has been changed to `GMOSDKReciever`
