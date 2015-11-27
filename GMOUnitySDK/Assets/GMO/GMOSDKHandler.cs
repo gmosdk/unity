@@ -8,7 +8,7 @@ using System.Text;
 public class GMOSDKHandler {
 	
 	private static GMOSDKHandler _instance;
-	public static string GMO_VERSION = "1.0.2a";
+	public static string GMO_VERSION = "1.0.2b";
 
 	private bool closeViewAfterSuccessPayment = false;
 	
@@ -352,7 +352,7 @@ public class GMOSDKHandler {
 	public void Init(){
 		GMOSDKReceiver.InitializeGameObjects ();
 		AndroidJNI.AttachCurrentThread ();
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		
 		Debug.Log("Start init Android");
 		
@@ -370,14 +370,14 @@ public class GMOSDKHandler {
 	}
 	
 	public void SetAutoShowLoginDialog(bool autoShowLogin) {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = autoShowLogin;
 		cls_GMOUnityHandler.CallStatic("SetAutoShowLoginDialog", args);
 	}
 	
 	public void SetKeepLoginSession(bool isKeepLoginSession){
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = isKeepLoginSession;
 		cls_GMOUnityHandler.CallStatic("SetKeepLoginSession", args);
@@ -385,21 +385,21 @@ public class GMOSDKHandler {
 	
 	// Have to call this function before Init() function.
 	public void SetHideWelcomeView(bool autoHideWelcomeView) {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = autoHideWelcomeView;
 		cls_GMOUnityHandler.CallStatic("SetHideWelcomeView", args);
 	}
 
 	public void SetSDKButtonVisibility(bool isVisibility) {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = isVisibility;
 		cls_GMOUnityHandler.CallStatic("SetSDKButtonVisibility", args);
     }
 
 	public void SetKeepCardPaymentPackageID(bool isKeepCardPackageID) {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = isKeepCardPackageID;
 		cls_GMOUnityHandler.CallStatic("SetKeepCardPaymentPackageID", args);
@@ -407,13 +407,13 @@ public class GMOSDKHandler {
 	
 	public void UseSmallSDKButton()
 	{
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("UseSmallSDKButton");
 	}
 
 	public void FinishSDK()
 	{
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("FinishSDK");
 	}
 
@@ -431,14 +431,14 @@ public class GMOSDKHandler {
 	#region User functions
 	public void Logout() {
 		Debug.Log ("Start logout");
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 
 		cls_GMOUnityHandler.CallStatic("Logout");
 	}
 	
 	public void SwitchAccount()
 	{
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("SwitchAccount");
 	}
 	
@@ -446,13 +446,13 @@ public class GMOSDKHandler {
 	{
 		GMOThreadHandler.Instance.Start();
 
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("ShowUserInfoView");
 	}
 
 	public void ShowRegisterView()
 	{
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("ShowRegisterView");
 	}
 
@@ -460,36 +460,36 @@ public class GMOSDKHandler {
 	{
 		GMOThreadHandler.Instance.Start();
 
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("ShowTransactionHistory");
 	}
 	
 	public void ShowLoginView()
 	{
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("ShowLoginView");
 	}
 	
 	public void ShowFacebookLogin()
 	{
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("ShowLoginFacebook");
 	}
 	
 	public void ShowGoogleLogin()
 	{
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("ShowLoginGoogle");
 	}
 	
 	public void ShowTwitterLogin()
 	{
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("ShowLoginTwitter");
 	}
 
 	public void SetHidePaymentView(bool isHidePaymentView) {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = isHidePaymentView;
 		cls_GMOUnityHandler.CallStatic("SetHidePaymentView", args);
@@ -497,17 +497,17 @@ public class GMOSDKHandler {
 	
 	public void InviteFacebookFriends()
 	{
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("InviteFacebookFriend");
 	}
 	
 	public bool IsUserLoggedIn() {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		return cls_GMOUnityHandler.CallStatic<bool>("IsUserLoggedIn");
 	}
 
 	public void SetCharacter(string characterName, string characterID, string serverName, string serverID) {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[4];
 		args [0] = characterName;
 		args [1] = characterID;
@@ -527,13 +527,13 @@ public class GMOSDKHandler {
 	#region Payment functions
 	public void ShowPaymentView()
 	{
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("ShowPaymentView");
 	}
 
 	public void ShowPaymentViewWithPackageID(string packageID)
 	{
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		
 		object[] args = new object[1];
 		args [0] = packageID;
@@ -544,12 +544,12 @@ public class GMOSDKHandler {
 	
 	public void ClosePaymentView()
 	{
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("ClosePaymentView");
 	}
 
 	public void SendStateToWrapper(string state) {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = state;
 		cls_GMOUnityHandler.CallStatic("SendStateToWrapper", args);
@@ -558,14 +558,14 @@ public class GMOSDKHandler {
 	
 	#region Analytics functions
 	public void SendView(string activityName) {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = activityName;
 		cls_GMOUnityHandler.CallStatic("SendView", args);
 	}
 	
 	public void SendEvent(string category,string action,string label) {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[3];
 		args [0] = category;
 		args [1] = action;
@@ -574,7 +574,7 @@ public class GMOSDKHandler {
 	}
 	
 	public void SendEvent(string category,string action,string label, int value) {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[4];
 		args [0] = category;
 		args [1] = action;
@@ -586,7 +586,7 @@ public class GMOSDKHandler {
 	
 	#region Notification functions
 	public void SetPushGroup(string groupName) {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = groupName;
 		cls_GMOUnityHandler.CallStatic("SetPushGroup", args);
@@ -596,25 +596,25 @@ public class GMOSDKHandler {
 	#region Facebook App Events functions
 	public void ActivateFBAppEvent()
 	{
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("ActivateFBAppEvent");
 	}
 	
 	public void DeactivateFBAppEvent()
 	{
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		cls_GMOUnityHandler.CallStatic("DeactivateFBAppEvent");
 	}
 
 	public void FBLogEvent(string name) {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[1];
 		args [0] = name;
 		cls_GMOUnityHandler.CallStatic("FBLogEvent", args);
 	}
 	
 	public void FBLogEventWithParameter(string name, double value, Dictionary<string, string> dictionary) {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[3];
 		args [0] = name;
 		args [1] = value;
@@ -626,7 +626,7 @@ public class GMOSDKHandler {
 	#region Other Functions
 	public void ConfigureAppFlyer() {
 		if (GMOSetting.UsingAppFlyer) {
-			cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+			cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 			object[] args = new object[1];
 			args [0] = GMOSetting.AppFlyerKey;
 			cls_GMOUnityHandler.CallStatic("ConfigureAppFlyer", args);
@@ -635,7 +635,7 @@ public class GMOSDKHandler {
 
 	public void ConfigureAdwords() {
 		if (GMOSetting.UsingAdWords) {
-			cls_GMOUnityHandler = new AndroidJavaClass("com.appota.gamesdk.v4.unity.UnityHandler");
+			cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 			object[] args = new object[4];
 			args [0] = GMOSetting.AdWordsConversionID;
 			args [1] = GMOSetting.AdWordsLabel;

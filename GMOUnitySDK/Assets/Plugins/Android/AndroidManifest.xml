@@ -24,22 +24,20 @@
       <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
       <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="false" />
     </activity>
-    <activity android:name="com.appota.gamesdk.v4.ui.BaseSDKActivty" android:theme="@android:style/Theme.Dialog">
+    <meta-data android:name="com.gmo.apiKey" android:value="K-A164834-U00000-SMB02Y-809329F27CB81310" />
+    <activity android:name="com.gmo.gamesdk.v4.ui.BaseSDKActivty" android:configChanges="orientation|keyboardHidden|screenSize" android:theme="@android:style/Theme.Dialog">
     </activity>
-    <!-- android:theme="@android:style/Theme.Dialog" -->
-    <!-- Declare Login Activity for Facebook login -->
-    <activity android:name="com.appota.facebook.LoginActivity" android:label="@string/app_name" android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-    <!-- set Appota Api Key -->
-    <meta-data android:name="com.appota.apiKey" android:value="K-A164834-U00000-SMB02Y-809329F27CB81310" />
     <meta-data android:name="com.crashlytics.ApiKey" android:value="041977b270d261673d4bb3f97e261b2427c6f6f0" />
     <!-- user this for twitter login -->
-    <meta-data android:name="com.appota.twitter.consumer.key" android:value="8JssO2TP6DPUvsMxIiuBA" />
-    <meta-data android:name="com.appota.twitter.consumer.secret" android:value="t20smaekjNGQONWvN63joVQQ3xZmoGmbnjeunFjI" />
+    <meta-data android:name="com.gmo.twitter.consumer.key" android:value="8JssO2TP6DPUvsMxIiuBA" />
+    <meta-data android:name="com.gmo.twitter.consumer.secret" android:value="t20smaekjNGQONWvN63joVQQ3xZmoGmbnjeunFjI" />
     <!-- Set Facebook Application ID -->
     <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="\ 355161784671889" />
     <meta-data android:name="FacebookAppLinkUrl" android:value="https://fb.me/438744256313641" />
     <meta-data android:name="com.onclan.gameId" android:value="" />
-    <activity android:name="com.appota.facebook.FacebookActivity" android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:theme="@android:style/Theme.Translucent.NoTitleBar">
+    <activity android:name="com.gmo.facebook.LoginActivity" android:label="@string/app_name" android:theme="@android:style/Theme.Translucent.NoTitleBar">
+    </activity>
+    <activity android:name="com.gmo.facebook.FacebookActivity" android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:theme="@android:style/Theme.Translucent.NoTitleBar">
     </activity>
   </application>
 </manifest>

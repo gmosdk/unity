@@ -149,7 +149,7 @@ extern "C" {
         json = [json stringByAppendingString:@"\","];
         json = [json stringByAppendingString:@"\"username\":\""];
         json = [json stringByAppendingString:userLoginResult.userName];
-        json = [json stringByAppendingString:@"\","];
+        json = [json stringByAppendingString:@"\""];
         json = [json stringByAppendingString:@"}"];
         
         return [json UTF8String];
@@ -245,7 +245,7 @@ extern "C" {
     json = [json stringByAppendingString:@"\","];
     json = [json stringByAppendingString:@"\"username\":\""];
     json = [json stringByAppendingString:userLoginResult.userName];
-    json = [json stringByAppendingString:@"\","];
+    json = [json stringByAppendingString:@"\""];
     json = [json stringByAppendingString:@"}"];
     
     UnitySendMessage("GMOSDKReceiver", "OnLoginSuccess", [json UTF8String]);
@@ -300,7 +300,7 @@ extern "C" {
     json = [json stringByAppendingString:@"\"productID\":\""];
     NSString *productID = paymentResult.appleProductID ? paymentResult.appleProductID : @"";
     json = [json stringByAppendingString:productID];
-    json = [json stringByAppendingString:@"\","];
+    json = [json stringByAppendingString:@"\""];
     json = [json stringByAppendingString:@"}"];
     
     UnitySendMessage("GMOSDKReceiver", "OnPaymentSuccess", [json UTF8String]);

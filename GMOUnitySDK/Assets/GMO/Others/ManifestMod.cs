@@ -12,16 +12,16 @@ namespace GMO
 	public class ManifestMod
 	{
 		// GMO Meta Data Element 
-		public const string GMOApikeyMetaDataName = "com.appota.apiKey";
+		public const string GMOApikeyMetaDataName = "com.gmo.apiKey";
 		public const string GMOGameIDMetaDataName = "com.onclan.gameId";
 		
 		// Social Elements Name
-		public const string LoginActivityName = "com.appota.facebook.LoginActivity";
-		public const string FacebookActivityName = "com.appota.facebook.FacebookActivity";
+		public const string LoginActivityName = "com.gmo.facebook.LoginActivity";
+		public const string FacebookActivityName = "com.gmo.facebook.FacebookActivity";
 		public const string ApplicationLinkMetaDataName = "FacebookAppLinkUrl";
 		public const string ApplicationIdMetaDataName = "com.facebook.sdk.ApplicationId";
-		public const string TwitterKeyMetaDataName = "com.appota.twitter.consumer.key";
-		public const string TwitterSecretMetaDataName = "com.appota.twitter.consumer.secret";
+		public const string TwitterKeyMetaDataName = "com.gmo.twitter.consumer.key";
+		public const string TwitterSecretMetaDataName = "com.gmo.twitter.consumer.secret";
 		
 		// OnClan Elements Name
 		public const string OnClanActivityName = "com.onclan.android.core.OnClanActivity";
@@ -29,7 +29,7 @@ namespace GMO
 		public const string OnClanChatServiceName = "com.onclan.android.chat.mqtt.ChatService";
 		
 		// GMO Elements Name
-		public const string GMOBaseActivityName = "com.appota.gamesdk.v4.ui.BaseSDKActivty";
+		public const string GMOBaseActivityName = "com.gmo.gamesdk.v4.ui.BaseSDKActivty";
 
 		public const string AppsFlyerReceiverName = "com.appsflyer.MultipleInstallBroadcastReceiver";
 		
@@ -150,7 +150,7 @@ namespace GMO
 			appLinkElement.SetAttribute("value", ns, GMOSetting.FacebookAppLinkUrl); 
 			
 			//add the TwitterConsumerKey
-			//<meta-data android:name="com.appota.gamesdk.twitter.consumer.key" android:value="YOUR_CONSUMER_KEY" />
+			//<meta-data android:name="com.gmo.gamesdk.twitter.consumer.key" android:value="YOUR_CONSUMER_KEY" />
 			XmlElement TwitterKeyElement = FindElementWithAndroidName("meta-data", "name", ns, TwitterKeyMetaDataName, dict);
 			if (TwitterKeyElement == null)
 			{
@@ -161,7 +161,7 @@ namespace GMO
 			TwitterKeyElement.SetAttribute("value", ns, "" + GMOSetting.TwitterConsumerKey); 
 			
 			//add the TwitterConsumerSecret
-			//<meta-data android:name="com.appota.gamesdk.twitter.consumer.secret" android:value="YOUR_SECRET_KEY" />
+			//<meta-data android:name="com.gmo.gamesdk.twitter.consumer.secret" android:value="YOUR_SECRET_KEY" />
 			XmlElement TwitterSecretElement = FindElementWithAndroidName("meta-data", "name", ns, TwitterSecretMetaDataName, dict);
 			if (TwitterSecretElement == null)
 			{
@@ -265,7 +265,7 @@ namespace GMO
 		
 		private static XmlElement CreateBaseActivityElement(XmlDocument doc, string ns)
 		{
-			//<activity android:name="com.appota.gamesdk.UserActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTask" android:theme="@style/Theme.GMO.GameSDK" android:windowSoftInputMode="adjustPan">
+			//<activity android:name="com.gmo.gamesdk.UserActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTask" android:theme="@style/Theme.GMO.GameSDK" android:windowSoftInputMode="adjustPan">
 			XmlElement activityElement = doc.CreateElement("activity");
 			activityElement.SetAttribute("name", ns, GMOBaseActivityName);
 			activityElement.SetAttribute("configChanges", ns, "orientation|keyboardHidden|screenSize");
