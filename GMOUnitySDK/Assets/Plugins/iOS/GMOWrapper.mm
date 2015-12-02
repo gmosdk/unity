@@ -266,7 +266,7 @@ extern "C" {
 - (void) didLogOut:(NSString*) userName {
     NSLog(@"Logout %@", userName);
     NSString *temp = @"";
-    if (!userName.length){
+    if (userName){
         temp = userName;
     }
     
