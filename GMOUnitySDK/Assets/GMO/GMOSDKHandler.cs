@@ -10,8 +10,6 @@ public class GMOSDKHandler {
 	private static GMOSDKHandler _instance;
 	public static string GMO_VERSION = "1.0.2b";
 
-	private bool closeViewAfterSuccessPayment = false;
-	
 	// Singleton for SDK handler
 	public static GMOSDKHandler Instance
 	{
@@ -347,6 +345,7 @@ public class GMOSDKHandler {
 
 	#if UNITY_ANDROID
 	private AndroidJavaClass cls_GMOUnityHandler;
+	private bool closeViewAfterSuccessPayment = false;
 	
 	#region SDK functions
 	public void Init(){
