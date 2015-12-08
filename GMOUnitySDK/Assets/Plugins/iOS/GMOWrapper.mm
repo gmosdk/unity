@@ -79,6 +79,11 @@ extern "C" {
         }];
     }
     
+    // Set keep card payment state
+    const void setKeepCardPaymentPackageID(bool state) {
+        [[GMOGameSDK sharedInstance] setKeepCardPaymentPackageID:state];
+    }
+    
     // User Functions
     const void showUserInfoView(){
         [GMOGameSDK showUserInfoView];
