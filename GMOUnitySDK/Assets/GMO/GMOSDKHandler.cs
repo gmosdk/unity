@@ -96,7 +96,10 @@ public class GMOSDKHandler {
 	
 	[DllImport("__Internal")]
 	private static extern void closePaymentView();
-	
+
+	[DllImport("__Internal")]
+	private static extern void setKeepCardPaymentPackageID(bool state);
+
 	// Track functions
 	[DllImport("__Internal")]
 	private static extern void sendEventWithCategoryWithValue(string category, string action, string label, int value);
@@ -135,6 +138,13 @@ public class GMOSDKHandler {
 	 * */
 	public void SetSDKButtonVisibility(bool isVisible){
 		setSDKButtonVisibility(isVisible);
+	}
+	
+	/*
+	* Call this function to show payment package for card
+	**/ 
+	public void SetKeepCardPaymentPackageID(bool state) {
+		setKeepCardPaymentPackageID(state);
 	}
 	
 	/*
