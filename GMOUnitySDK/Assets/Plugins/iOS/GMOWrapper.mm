@@ -62,7 +62,7 @@ extern "C" {
     const void setHideWelcomeView(bool property) {
         [[GMOGameSDK sharedInstance] setHideWelcomeView: property];
     }
-
+    
     const void setHidePaymentView(bool property) {
         [[GMOGameSDK sharedInstance] setHidePaymentView: property];
     }
@@ -282,7 +282,7 @@ extern "C" {
     if (!packageID.length){
         packageID = @"";
     }
-
+    
     NSString *json = @"{";
     json = [json stringByAppendingString:@"\"packageID\":\""];
     json = [json stringByAppendingString:packageID];

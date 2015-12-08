@@ -8,7 +8,7 @@ using System.Text;
 public class GMOSDKHandler {
 	
 	private static GMOSDKHandler _instance;
-	public static string GMO_VERSION = "1.0.2b";
+	public static string GMO_VERSION = "1.0.2c";
 
 	// Singleton for SDK handler
 	public static GMOSDKHandler Instance
@@ -31,7 +31,7 @@ public class GMOSDKHandler {
 	
 	[DllImport("__Internal")]
 	private static extern void setKeepLoginSession(bool isKeepLoginSession);
-	
+
 	[DllImport("__Internal")]
 	private static extern bool setHideWelcomeView(bool isHideWelcomeView);
 
@@ -259,7 +259,7 @@ public class GMOSDKHandler {
 			builder.Append(permission).Append("|");
 		}
 
-		string result = builder.ToString();
+		string result = builder.ToString(); 
 		
 		// Remove the final delimiter
 		result = result.TrimEnd('|');
