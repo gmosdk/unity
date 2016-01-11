@@ -8,17 +8,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 3b618b83d21f94b4a9a217775f7473af, type: 3}
   m_Name: GMOSettings
-  m_EditorClassIdentifier: Assembly-CSharp::GMOSetting
+  m_EditorClassIdentifier: 
   facebookAppID: 355161784671889
   facebookAppSecretID: 
-  facebookAppLinkUrl: https://fb.me/438744256313641
+  facebookAppLinkUrl: 
   twitterConsumerKey: 8JssO2TP6DPUvsMxIiuBA
   twitterConsumerSecret: t20smaekjNGQONWvN63joVQQ3xZmoGmbnjeunFjI
-  googleClientId: 80598588743-5a45rsdlejpqrs1g71nlfkle1edg729c.apps.googleusercontent.com
+  googleClientId: 
   googleClientSecretId: 
-  inAppApiKey: K-A164834-U00000-SMB02Y-809329F27CB81310
+  inAppApiKey: K-A164833-U00000-FSHFTL-AAB432B007C2EDBE
   paymentState: 
   gameID: 
   usingAppFlyer: 0
