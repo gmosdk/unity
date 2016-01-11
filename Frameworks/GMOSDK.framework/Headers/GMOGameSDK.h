@@ -55,7 +55,6 @@
  *  @param isHideGMOLogo 
  */
 - (void) setHideLogo:(BOOL)isHideLogo;
-- (void) setKeepCardPaymentPackageID:(BOOL)isKeepCardPackageId;
 
 /**
  *  Delegate for callback function to handle PAYMENT, LOGIN callback
@@ -192,4 +191,6 @@
                serverName:(NSString *)serverName serverID:(NSString *)serverID
           onCompleteBlock:(GMOSDKDictionaryBlock ) completeBlock
              onErrorBlock:(GMOSDKErrorBlock ) errorBlock;
+
+- (NSString*) getGamotaNews;
 @end

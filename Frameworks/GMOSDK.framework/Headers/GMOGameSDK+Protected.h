@@ -20,5 +20,6 @@
 @property (assign, nonatomic) BOOL autoShowLoginDialog;
 @property (assign, nonatomic) BOOL isHidePaymentView;
 @property (assign, nonatomic) BOOL isHideLogo;
-@property (assign, nonatomic) BOOL isKeepCardPackageId;
+@property (nonatomic, readonly) int fbInviteState;
+
 @end
