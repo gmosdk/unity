@@ -120,7 +120,7 @@ public class IDController : EditorWindow {
 		{
 			// AppFlyer Configure
 			if (_usingAppFlyer) GUI.backgroundColor = Color.green; else GUI.backgroundColor = Color.white;
-			_usingAppFlyer = EditorGUILayout.Toggle("Using AppFlyer",_usingAppFlyer);
+			_usingAppFlyer = EditorGUILayout.Toggle("Using AppFlyer",true);
 			GUI.backgroundColor = Color.white;
 			if (_usingAppFlyer) {
 				_appleAppID = EditorGUILayout.TextField("Apple AppID", _appleAppID);
@@ -130,7 +130,7 @@ public class IDController : EditorWindow {
 
 			// AdWords Configure
 			if (_usingAdWords) GUI.backgroundColor = Color.green; else GUI.backgroundColor = Color.white;
-			_usingAdWords = EditorGUILayout.Toggle("Using AdWords",_usingAdWords);
+			_usingAdWords = EditorGUILayout.Toggle("Using AdWords",true);
 			GUI.backgroundColor = Color.white;
 			if (_usingAdWords) {
 				_adWordsConversionID = EditorGUILayout.TextField("ConversionID", _adWordsConversionID);
@@ -140,8 +140,6 @@ public class IDController : EditorWindow {
 				_adWordsIsRepeatable = EditorGUILayout.Toggle("IsRepeatable",_adWordsIsRepeatable);
 				GUI.backgroundColor = Color.white;
 			}
-
-
 		}
 		
 		GUILayout.Space(10);

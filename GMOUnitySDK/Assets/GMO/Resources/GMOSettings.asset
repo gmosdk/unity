@@ -21,10 +21,10 @@ MonoBehaviour:
   inAppApiKey: K-A164833-U00000-FSHFTL-AAB432B007C2EDBE
   paymentState: 
   gameID: 
-  usingAppFlyer: 0
+  usingAppFlyer: 1
   appleAppID: 
   appFlyerKey: 
-  usingAdWords: 0
+  usingAdWords: 1
   adWordsConversionID: 
   adWordsLabel: 
   adWordsValue: 

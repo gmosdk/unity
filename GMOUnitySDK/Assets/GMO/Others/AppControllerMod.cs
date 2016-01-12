@@ -27,11 +27,11 @@ public class AppControllerMod
 		// Add callback register Push Notification with Token data
 		AppControllerSource = AddCallbackRegisterPushNotificationWithTokenData(AppControllerSource);
 
-		if (GMOSetting.UsingAppFlyer) 
-			AppControllerSource = AddAppFlyerConfigure(AppControllerSource);
+		// Config AppFlyer
+		AppControllerSource = AddAppFlyerConfigure(AppControllerSource);
 
-		if (GMOSetting.UsingAdWords)
-			AppControllerSource = AddAdWordsConfigure(AppControllerSource);
+		// Config AdWords
+		AppControllerSource = AddAdWordsConfigure(AppControllerSource);
 
         var writer = new StreamWriter(fullPath, false);
 		writer.Write(AppControllerSource);
