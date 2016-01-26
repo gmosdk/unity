@@ -34,6 +34,11 @@
  */
 - (void) didUpdateUserInfo:(GMOUserLoginResult *)userLoginResult;
 
+/*
+ * Callback when Payment success
+ */
+- (void) didPaymentSuccessWithResult:(GMOPaymentResult*) paymentResult withPackage:(NSString *) packageID;
+
 
 @required
 /**
@@ -47,13 +52,9 @@
  * Callback after login
  */
 - (void) didLoginSuccess:(GMOUserLoginResult*) userLoginResult;
+
 /*
  * Callback after logout
  */
 - (void) didLogOut:(NSString*) userName;
-/*
- * Callback when Payment success
- */
-- (void) didPaymentSuccessWithResult:(GMOPaymentResult*) paymentResult withPackage:(NSString *) packageID;
-
 @end

@@ -184,13 +184,12 @@
  *  handle push notification with Group Name
  */
 + (void) handlePushNotification:(NSDictionary *)receiveDictionary;
+
 /**
- *  Set Character;
+ *  Set role function
  */
-+ (void) setCharacterWithCharacterName:(NSString *)characterName characterID:(NSString *)characterID
-               serverName:(NSString *)serverName serverID:(NSString *)serverID
-          onCompleteBlock:(GMOSDKDictionaryBlock ) completeBlock
-             onErrorBlock:(GMOSDKErrorBlock ) errorBlock;
++ (void) setRoleWithRoleName:(NSString *)roleName roleID:(NSString *)roleID
+                  serverName:(NSString *)serverName serverID:(NSString *)serverID;
 
 - (NSString*) getGamotaNews;
 @end

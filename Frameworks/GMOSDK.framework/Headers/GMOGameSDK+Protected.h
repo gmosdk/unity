@@ -14,6 +14,12 @@
 @property(readonly, strong)  GMOTrackObject *trackObject;
 @property(readonly, strong)  GMOUserLoginResult *userLoginResultObject;
 @property(readonly, strong)  GMODevConfigObject *paymentConfigObject;
+
+@property(readonly, strong)  NSString *roleID;
+@property(readonly, strong)  NSString *roleName;
+@property(readonly, strong)  NSString *serverID;
+@property(readonly, strong)  NSString *serverName;
+
 @property(nonatomic, assign) BOOL isHideWelcomeView;
 @property(assign, nonatomic) BOOL isKeepLoginSession;
 @property (readwrite) BOOL autoShowPaymentButton;
