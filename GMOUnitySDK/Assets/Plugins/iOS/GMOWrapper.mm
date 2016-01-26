@@ -3,6 +3,7 @@
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <AppsFlyer/AppsFlyer.h>
 
 @interface GMOWrapper()
 + (NSMutableDictionary *) unpackToDictionary: (NSString *) parameters;
@@ -77,11 +78,6 @@ extern "C" {
         } andErorrBlock:^(NSError *error) {
             
         }];
-    }
-    
-    // Set keep card payment state
-    const void setKeepCardPaymentPackageID(bool state) {
-        [[GMOGameSDK sharedInstance] setKeepCardPaymentPackageID:state];
     }
     
     // User Functions
@@ -173,12 +169,8 @@ extern "C" {
         sharedMyInstance.wrapperPaymentState = cStringCopy(state);
     }
     
-    const void setCharacter(const char *name, const char *characterID, const char *serverName, const char *serverID){
-        [GMOGameSDK setCharacterWithCharacterName: [NSString stringWithUTF8String:name] characterID:[NSString stringWithUTF8String:characterID] serverName:[NSString stringWithUTF8String:serverName] serverID:[NSString stringWithUTF8String:serverID] onCompleteBlock:^(NSDictionary *dict) {
-            
-        } onErrorBlock:^(NSError *error) {
-            
-        }];
+    const void setRoleWithRoleName(const char *roleName, const char *roleID, const char *serverName, const char *serverID){
+        [GMOGameSDK setRoleWithRoleName:[NSString stringWithUTF8String:roleName] roleID:[NSString stringWithUTF8String:roleID] serverName:[NSString stringWithUTF8String:serverName] serverID:[NSString stringWithUTF8String:serverID]];
     }
     
     const void closePaymentView(){
@@ -256,6 +248,10 @@ extern "C" {
     UnitySendMessage("GMOSDKReceiver", "OnLoginSuccess", [json UTF8String]);
     
     [FBSDKAppEvents logEvent:@"GMO_mobile_complete_login"];
+    
+    NSString *userID = userLoginResult.userID ? userLoginResult.userID : @"";
+    [[AppsFlyerTracker sharedTracker] setCustomerUserID:userID];
+    [[AppsFlyerTracker sharedTracker] trackEvent:AFEventLogin withValue:userID];
 }
 
 /*

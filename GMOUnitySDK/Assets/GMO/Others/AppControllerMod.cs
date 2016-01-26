@@ -167,8 +167,8 @@ public class AppControllerMod
 		
 		string fixedAppController = AppControllerSource.Substring(0, fixupStart);
 		
-		if ( AppControllerSource.IndexOf("AppsFlyerTracker.h", System.StringComparison.Ordinal) <= 0){
-			fixedAppController += "\n#import \"AppsFlyerTracker.h\"\n#import <OpenGLES/EAGL.h>";
+		if ( AppControllerSource.IndexOf("<Appsflyer/Appsflyer.h>", System.StringComparison.Ordinal) <= 0){
+			fixedAppController += "\n#import <Appsflyer/Appsflyer.h>\n#import <OpenGLES/EAGL.h>";
 		}
 		
 		fixedAppController += AppControllerSource.Substring(fixupEnd+1);

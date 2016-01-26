@@ -13,10 +13,8 @@ namespace GMO
 	{
 		// GMO Meta Data Element 
 		public const string GMOApikeyMetaDataName = "com.gmo.apiKey";
-		public const string GMOGameIDMetaDataName = "com.onclan.gameId";
 		
 		// Social Elements Name
-		public const string LoginActivityName = "com.gmo.facebook.LoginActivity";
 		public const string FacebookActivityName = "com.gmo.facebook.FacebookActivity";
 		public const string ApplicationLinkMetaDataName = "FacebookAppLinkUrl";
 		public const string ApplicationIdMetaDataName = "com.facebook.sdk.ApplicationId";
@@ -111,14 +109,6 @@ namespace GMO
 			string ns = dict.GetNamespaceOfPrefix("android");
 			
 			#region Modify Social Elements 
-			//add the facebook login activity
-			XmlElement loginElement = FindElementWithAndroidName("activity", "name", ns, LoginActivityName, dict);
-			if (loginElement == null)
-			{
-				loginElement = CreateFBLoginElement(doc, ns);
-				dict.AppendChild(loginElement);
-			}
-
 			//add the facebook activity
 			XmlElement facebookActivityElement = FindElementWithAndroidName("activity", "name", ns, FacebookActivityName, dict);
 			if (facebookActivityElement == null)
@@ -183,16 +173,18 @@ namespace GMO
 			}
 			GMOApikeyElement.SetAttribute("value", ns, "" + GMOSetting.InAppApiKey); 
 			
-			// Add GameID 
-			XmlElement GMOGameIDElement = FindElementWithAndroidName("meta-data", "name", ns, GMOGameIDMetaDataName, dict);
-			if (GMOGameIDElement == null)
+			#endregion
+
+			#region GG Play Service
+			XmlElement GGPlayServiceElement = FindElementWithAndroidName("meta-data", "name", ns, "com.google.android.gms.version", dict);
+			if (GGPlayServiceElement == null)
 			{
-				GMOGameIDElement = doc.CreateElement("meta-data");
-				GMOGameIDElement.SetAttribute("name", ns, GMOGameIDMetaDataName);
-				dict.AppendChild(GMOGameIDElement);
+				GGPlayServiceElement = doc.CreateElement("meta-data");
+				GGPlayServiceElement.SetAttribute("name", ns, "com.google.android.gms.version");
+				dict.AppendChild(GGPlayServiceElement);
 			}
-			GMOGameIDElement.SetAttribute("value", ns, "" + GMOSetting.GameID); 
-			
+			GGPlayServiceElement.SetAttribute("value", ns, "" + "7571000"); 
+
 			#endregion
 			
 			// Creating Elements is depend on which SDKs was used 
@@ -220,17 +212,6 @@ namespace GMO
 		}
 		
 		#region Social Elements
-		private static XmlElement CreateFBLoginElement(XmlDocument doc, string ns)
-		{
-			//<activity android:name="com.facebook.LoginActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:label="@string/app_name" />
-			XmlElement activityElement = doc.CreateElement("activity");
-			activityElement.SetAttribute("name", ns, LoginActivityName);
-			activityElement.SetAttribute("label", ns, "@string/app_name");
-			activityElement.SetAttribute("theme", ns, "@android:style/Theme.Translucent.NoTitleBar");
-			activityElement.InnerText = "\n    ";  //be extremely anal to make diff tools happy
-			return activityElement;
-		}
-
 		private static XmlElement CreateFBActivityElement(XmlDocument doc, string ns)
 		{
 			//<activity android:name="com.facebook.LoginActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:label="@string/app_name" />
@@ -380,6 +361,22 @@ namespace GMO
 				AppsflyerElement = CreateAppFlyerReceiverElement(doc, ns);
 				dict.AppendChild(AppsflyerElement);
 			}
+
+			XmlNode AppsflyerRemoveReceiver = FindNodeWithAndroidName("receiver", "name", ns, "com.appsflyer.AppsFlyerLib", dict);
+			if (AppsflyerRemoveReceiver == null)
+			{
+				AppsflyerRemoveReceiver = CreateAppFlyerRemoveReceiverElement(doc, ns);
+				dict.AppendChild(AppsflyerRemoveReceiver);
+			}
+
+			XmlElement AppsFlyerKey = FindElementWithAndroidName("meta-data", "name", ns, "com.gmo.appsflyerKey", dict);
+			if (AppsFlyerKey == null)
+			{
+				AppsFlyerKey = doc.CreateElement("meta-data");
+				AppsFlyerKey.SetAttribute("name", ns, "com.gmo.appsflyerKey");
+				dict.AppendChild(AppsFlyerKey);
+			}
+			AppsFlyerKey.SetAttribute("value", ns, "" + GMOSetting.AppFlyerKey); 
 		}
 		
 		private static void RemoveAppsflyerElements(XmlNode dict, string ns)
@@ -410,6 +407,30 @@ namespace GMO
 			
 			intentFilterNode.AppendChild(actionElement);
 			
+			activityNode.AppendChild(intentFilterNode);
+			return activityNode;
+		}
+
+		private static XmlNode CreateAppFlyerRemoveReceiverElement(XmlDocument doc, string ns)
+		{
+			XmlNode activityNode = doc.CreateNode("element", "receiver", "");
+
+			XmlAttribute attr = doc.CreateAttribute("name", ns);
+			attr.Value = "com.appsflyer.AppsFlyerLib";
+			activityNode.Attributes.SetNamedItem(attr);
+
+			XmlNode intentFilterNode = doc.CreateNode("element", "intent-filter", "");
+
+			XmlElement actionElement = doc.CreateElement("action");
+			actionElement.SetAttribute("name", ns, "android.intent.action.PACKAGE_REMOVED");
+
+			intentFilterNode.AppendChild(actionElement);
+
+			XmlElement dataElement = doc.CreateElement("data");
+			dataElement.SetAttribute("scheme", ns, "package");
+
+			intentFilterNode.AppendChild(dataElement);
+
 			activityNode.AppendChild(intentFilterNode);
 			return activityNode;
 		}

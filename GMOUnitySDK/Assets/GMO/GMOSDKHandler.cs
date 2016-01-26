@@ -92,13 +92,10 @@ public class GMOSDKHandler {
 	private static extern void sendStateToWrapper(string state);
 	
 	[DllImport("__Internal")]
-	private static extern void setCharacter(string characterName, string characterID, string serverName, string serverID);
+	private static extern void setRoleWithRoleName(string roleName, string roleID, string serverName, string serverID);
 	
 	[DllImport("__Internal")]
 	private static extern void closePaymentView();
-
-	[DllImport("__Internal")]
-	private static extern void setKeepCardPaymentPackageID(bool state);
 
 	// Track functions
 	[DllImport("__Internal")]
@@ -138,13 +135,6 @@ public class GMOSDKHandler {
 	 * */
 	public void SetSDKButtonVisibility(bool isVisible){
 		setSDKButtonVisibility(isVisible);
-	}
-	
-	/*
-	* Call this function to show payment package for card
-	**/ 
-	public void SetKeepCardPaymentPackageID(bool state) {
-		setKeepCardPaymentPackageID(state);
 	}
 	
 	/*
@@ -241,8 +231,8 @@ public class GMOSDKHandler {
 	/*
 	 * Set character function to support character management on web
 	 * */
-	public void SetCharacter(string characterName, string characterID, string serverName, string serverID) {
-		setCharacter(characterName, characterID, serverName, serverID);
+	public void SetRoleWithRoleName(string roleName, string roleID, string serverName, string serverID) {
+		setRoleWithRoleName(roleName, roleID, serverName, serverID);
 	}
 	
 	public void ShowFacebookLogin()
@@ -373,9 +363,6 @@ public class GMOSDKHandler {
 		// Configure Adwords and AppFlyer 
 		if (GMOSetting.UsingAdWords)
 			GMOSDKHandler.Instance.ConfigureAdwords();
-
-		if (GMOSetting.UsingAppFlyer)
-			GMOSDKHandler.Instance.ConfigureAppFlyer();
 	}
 	
 	public void SetAutoShowLoginDialog(bool autoShowLogin) {
@@ -407,13 +394,6 @@ public class GMOSDKHandler {
 		cls_GMOUnityHandler.CallStatic("SetSDKButtonVisibility", args);
     }
 
-	public void SetKeepCardPaymentPackageID(bool isKeepCardPackageID) {
-		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
-		object[] args = new object[1];
-		args [0] = isKeepCardPackageID;
-		cls_GMOUnityHandler.CallStatic("SetKeepCardPaymentPackageID", args);
-	}
-	
 	public void UseSmallSDKButton()
 	{
 		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
@@ -515,14 +495,14 @@ public class GMOSDKHandler {
 		return cls_GMOUnityHandler.CallStatic<bool>("IsUserLoggedIn");
 	}
 
-	public void SetCharacter(string characterName, string characterID, string serverName, string serverID) {
+	public void SetRoleWithRoleName(string roleName, string roleID, string serverName, string serverID) {
 		cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
 		object[] args = new object[4];
-		args [0] = characterName;
-		args [1] = characterID;
+		args [0] = roleName;
+		args [1] = roleID;
 		args [2] = serverName;
 		args [3] = serverID;
-		cls_GMOUnityHandler.CallStatic("SetCharacter", args);
+		cls_GMOUnityHandler.CallStatic("SetRoleWithRoleName", args);
 	}
 	
 	/*

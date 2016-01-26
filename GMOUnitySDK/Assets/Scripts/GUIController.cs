@@ -19,7 +19,6 @@ public class GUIController : MonoBehaviour {
 		GMOSDKHandler.Instance.SetAutoShowLoginDialog(true);
 		GMOSDKHandler.Instance.UseSmallSDKButton();
 		GMOSDKHandler.Instance.SetKeepLoginSession(true);
-		GMOSDKHandler.Instance.SetKeepCardPaymentPackageID(true);
 
 		#endif
 
