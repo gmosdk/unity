@@ -50,5 +50,8 @@
         <data android:scheme="package" />
       </intent-filter>
     </receiver>
+    <meta-data android:name="com.gmo.adwordsConvId" android:value="969185644" />
+    <meta-data android:name="com.gmo.adwordsLabel" android:value="n6FyCJ_hg2QQ7LKSzgM" />
+    <meta-data android:name="com.gmo.adwordsValue" android:value="1000.00" />
   </application>
 </manifest>

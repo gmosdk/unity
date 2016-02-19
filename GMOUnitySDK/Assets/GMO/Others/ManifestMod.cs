@@ -208,6 +208,11 @@ namespace GMO
 			else
 				RemoveAppsflyerElements (dict, ns);
 
+			if (GMOSetting.UsingAdWords) {
+				CreateAdWordsElements (doc, dict, ns);
+				CreateAdWordsReceiverElement (doc, ns);
+			}
+
 			doc.Save(fullPath);
 		}
 		
@@ -437,7 +442,7 @@ namespace GMO
 		#endregion
 		
 		#region AdsWorks Elements 
-		private static XmlNode CreateAdsWorkReceiverElement(XmlDocument doc, string ns)
+		private static XmlNode CreateAdWordsReceiverElement(XmlDocument doc, string ns)
 		{
 			XmlNode activityNode = doc.CreateNode("element", "receiver", "");
 			
@@ -459,7 +464,24 @@ namespace GMO
 			activityNode.AppendChild(intentFilterNode);
 			return activityNode;
 		}
+		private static void CreateAdWordsElements(XmlDocument doc, XmlNode dict, string ns)
+		{
+			CreateElement (doc, dict, ns, "meta-data", "com.gmo.adwordsConvId", GMOSetting.AdWordsConversionID);
+			CreateElement (doc, dict, ns, "meta-data", "com.gmo.adwordsLabel", GMOSetting.AdWordsLabel);
+			CreateElement (doc, dict, ns, "meta-data", "com.gmo.adwordsValue", GMOSetting.AdWordsValue);
+		}
 		#endregion
+
+		private static void CreateElement(XmlDocument doc, XmlNode dict, string ns, string tag, string name, string value){
+			XmlElement _element = FindElementWithAndroidName(tag, "name", ns, name, dict);
+			if (_element == null)
+			{
+				_element = doc.CreateElement("meta-data");
+				_element.SetAttribute("name", ns, name);
+				dict.AppendChild(_element);
+			}
+			_element.SetAttribute("value", ns, "" + value); 
+		}
 	}
 
 }
