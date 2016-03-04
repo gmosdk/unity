@@ -160,6 +160,37 @@ namespace GMO
 					AddChildElement(doc, lsSchemeArray, "string", "fbshareextension");
 				}
 			}
+
+			// Adwords and Appflyer configure
+			if(!HasKey(dict, "GMOAFKey"))
+			{
+				AddChildElement(doc, dict, "key", "GMOAFKey");
+				AddChildElement(doc, dict, "string", GMOSetting.AppFlyerKey);
+			}
+
+			if(!HasKey(dict, "GMOAFAppID"))
+			{
+				AddChildElement(doc, dict, "key", "GMOAFAppID");
+				AddChildElement(doc, dict, "string", GMOSetting.AppleAppID);
+			}
+
+			if(!HasKey(dict, "GMOGGConversionID"))
+			{
+				AddChildElement(doc, dict, "key", "GMOGGConversionID");
+				AddChildElement(doc, dict, "string", GMOSetting.AdWordsConversionID);
+			}
+
+			if(!HasKey(dict, "GMOGGLabel"))
+			{
+				AddChildElement(doc, dict, "key", "GMOGGLabel");
+				AddChildElement(doc, dict, "string", GMOSetting.AdWordsLabel);
+			}
+
+			if(!HasKey(dict, "GMOGGValue"))
+			{
+				AddChildElement(doc, dict, "key", "GMOGGValue");
+				AddChildElement(doc, dict, "string", GMOSetting.AdWordsValue);
+			}
 			
 			//here's how the custom url scheme should end up looking
 			/*

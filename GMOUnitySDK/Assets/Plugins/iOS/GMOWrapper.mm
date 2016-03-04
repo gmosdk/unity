@@ -3,7 +3,6 @@
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <AppsFlyer/AppsFlyer.h>
 
 @interface GMOWrapper()
 + (NSMutableDictionary *) unpackToDictionary: (NSString *) parameters;
@@ -249,9 +248,6 @@ extern "C" {
     
     [FBSDKAppEvents logEvent:@"GMO_mobile_complete_login"];
     
-    NSString *userID = userLoginResult.userID ? userLoginResult.userID : @"";
-    [[AppsFlyerTracker sharedTracker] setCustomerUserID:userID];
-    [[AppsFlyerTracker sharedTracker] trackEvent:AFEventLogin withValue:userID];
 }
 
 /*

@@ -27,12 +27,6 @@ public class AppControllerMod
 		// Add callback register Push Notification with Token data
 		AppControllerSource = AddCallbackRegisterPushNotificationWithTokenData(AppControllerSource);
 
-		// Config AppFlyer
-		AppControllerSource = AddAppFlyerConfigure(AppControllerSource);
-
-		// Config AdWords
-		AppControllerSource = AddAdWordsConfigure(AppControllerSource);
-
         var writer = new StreamWriter(fullPath, false);
 		writer.Write(AppControllerSource);
         writer.Close();
@@ -151,108 +145,5 @@ public class AppControllerMod
 		
 		fbActiveString += AppControllerSource.Substring(fbActivePosEnd+1);
 		return fbActiveString;
-	}
-
-	private static string AddAppFlyerConfigure(string AppControllerSource) {
-		// Add header import
-		Debug.Log("Add AppFlyer Configure");
-		string finalAppController = "";
-
-		int fixupStart = AppControllerSource.IndexOf("#import <OpenGLES/EAGL.h", System.StringComparison.Ordinal);
-		if(fixupStart <= 0)
-			return AppControllerSource;
-		int fixupEnd = AppControllerSource.IndexOf(">", fixupStart);
-		if(fixupEnd <= 0)
-			return AppControllerSource;
-		
-		string fixedAppController = AppControllerSource.Substring(0, fixupStart);
-		
-		if ( AppControllerSource.IndexOf("<Appsflyer/Appsflyer.h>", System.StringComparison.Ordinal) <= 0){
-			fixedAppController += "\n#import <Appsflyer/Appsflyer.h>\n#import <OpenGLES/EAGL.h>";
-		}
-		
-		fixedAppController += AppControllerSource.Substring(fixupEnd+1);
-		finalAppController = fixedAppController;
-
-		// Add configure 
-		int regPosStart = finalAppController.IndexOf("didFinishLaunchingWithOptions", System.StringComparison.Ordinal);
-		if (regPosStart <= 0)
-			return AppControllerSource;
-		int regPosEnd = finalAppController.IndexOf("{", regPosStart);
-		if (regPosEnd <= 0)
-			return AppControllerSource;
-		
-		string tempString = finalAppController.Substring(0, regPosEnd);
-		
-		if (finalAppController.IndexOf("AppsFlyerTracker sharedTracker", System.StringComparison.Ordinal) <= 0){
-			tempString += "{\n\t[AppsFlyerTracker sharedTracker].appleAppID = @\"" + GMOSetting.AppleAppID + "\";";
-			tempString += "\n\t[AppsFlyerTracker sharedTracker].appsFlyerDevKey = @\"" + GMOSetting.AppFlyerKey + "\";";
-		}
-		
-		tempString += finalAppController.Substring(regPosEnd+1);
-		finalAppController = tempString;
-
-		// Add track install 
-		int posStart = finalAppController.IndexOf("applicationDidBecomeActive", System.StringComparison.Ordinal);
-		if (posStart <= 0)
-			return AppControllerSource;
-		int posEnd = finalAppController.IndexOf("{", posStart);
-		if (posEnd <= 0)
-			return AppControllerSource;
-		
-		string trackString = finalAppController.Substring(0, posEnd);
-		
-		if (finalAppController.IndexOf("[AppsFlyerTracker sharedTracker] trackAppLaunch", System.StringComparison.Ordinal) <= 0){
-			trackString += "{\n\t[[AppsFlyerTracker sharedTracker] trackAppLaunch];";
-		}
-		
-		trackString += finalAppController.Substring(posEnd+1);
-		finalAppController = trackString;
-
-		return finalAppController;
-	}
-
-	private static string AddAdWordsConfigure(string AppControllerSource) {
-		// Add header import
-		Debug.Log("Add AdWords Configure");
-		string finalAppController = "";
-		
-		int fixupStart = AppControllerSource.IndexOf("#import <OpenGLES/EAGL.h", System.StringComparison.Ordinal);
-		if(fixupStart <= 0)
-			return AppControllerSource;
-		int fixupEnd = AppControllerSource.IndexOf(">", fixupStart);
-		if(fixupEnd <= 0)
-			return AppControllerSource;
-		
-		string fixedAppController = AppControllerSource.Substring(0, fixupStart);
-		
-		if ( AppControllerSource.IndexOf("ACTReporter.h", System.StringComparison.Ordinal) <= 0){
-			fixedAppController += "\n#import \"ACTReporter.h\"\n#import <OpenGLES/EAGL.h>";
-		}
-		
-		fixedAppController += AppControllerSource.Substring(fixupEnd+1);
-		finalAppController = fixedAppController;
-		
-		// Add configure 
-		int regPosStart = finalAppController.IndexOf("didFinishLaunchingWithOptions", System.StringComparison.Ordinal);
-		if (regPosStart <= 0)
-			return AppControllerSource;
-		int regPosEnd = finalAppController.IndexOf("{", regPosStart);
-		if (regPosEnd <= 0)
-			return AppControllerSource;
-		
-		string tempString = finalAppController.Substring(0, regPosEnd);
-		
-		if (finalAppController.IndexOf("ACTConversionReporter reportWithConversionID", System.StringComparison.Ordinal) <= 0){
-			string isRepeatable = GMOSetting.AdWordsIsRepeatable?"YES":"NO";
-			tempString += "{\n\t[ACTAutomatedUsageTracker enableAutomatedUsageReportingWithConversionID:@\"" + GMOSetting.AdWordsConversionID +"\"];" +
-				"\n\t[ACTConversionReporter reportWithConversionID:@\"" + GMOSetting.AdWordsConversionID 
-				+ "\" label:@\"" + GMOSetting.AdWordsLabel + "\" value:@\"" + GMOSetting.AdWordsValue + "\" isRepeatable:" 
-				+ isRepeatable + "];";
-		}
-		
-		tempString += finalAppController.Substring(regPosEnd+1);
-		finalAppController = tempString;
-		return finalAppController;
 	}
 }

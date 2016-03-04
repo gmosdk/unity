@@ -359,10 +359,6 @@ public class GMOSDKHandler {
 		
 		Debug.Log("Called init Android ");
 		Debug.Log("GMOSDK-Unity Version: " + GMO_VERSION);
-
-		// Configure Adwords and AppFlyer 
-		if (GMOSetting.UsingAdWords)
-			GMOSDKHandler.Instance.ConfigureAdwords();
 	}
 	
 	public void SetAutoShowLoginDialog(bool autoShowLogin) {
@@ -610,30 +606,6 @@ public class GMOSDKHandler {
 		args [2] = ConvertDictionaryToString(dictionary);
 		cls_GMOUnityHandler.CallStatic("FBLogEventWithParameter", args);
 	}
-	#endregion
-
-	#region Other Functions
-	public void ConfigureAppFlyer() {
-		if (GMOSetting.UsingAppFlyer) {
-			cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
-			object[] args = new object[1];
-			args [0] = GMOSetting.AppFlyerKey;
-			cls_GMOUnityHandler.CallStatic("ConfigureAppFlyer", args);
-		}
-	}
-
-	public void ConfigureAdwords() {
-		if (GMOSetting.UsingAdWords) {
-			cls_GMOUnityHandler = new AndroidJavaClass("com.gmo.gamesdk.v4.unity.UnityHandler");
-			object[] args = new object[4];
-			args [0] = GMOSetting.AdWordsConversionID;
-			args [1] = GMOSetting.AdWordsLabel;
-			args [2] = GMOSetting.AdWordsValue;
-			args [3] = GMOSetting.AdWordsIsRepeatable;
-			cls_GMOUnityHandler.CallStatic("ConfigureAdwords", args);
-		}
-	}
-
 	#endregion
 	#endif
 
