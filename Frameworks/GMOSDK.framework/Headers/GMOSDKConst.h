@@ -43,8 +43,8 @@ typedef void (^GMOSDKObjectHandler) (id object, NSError *error);
 //
 #define GMO_LANGUAGE_KEY [@"a0FwcG90YUxhbmdLZXk=" base64DecodedString]
 #define GMOGame_SDK_VERSION @"4.0"
-#define GMOGame_SDK_LABEL_VERSION @"4.1.b5"
-#define GMOGame_SDK_BUILD 45
+#define GMOGame_SDK_LABEL_VERSION @"4.1.pb15"
+#define GMOGame_SDK_BUILD 55
 #define GMO_LOGIN_DICT_KEY_SAVED [@"a2V5X2FwcG90YV9sb2dpbl9kaWN0X3NhdmVk" base64DecodedString]
 
 //Debug mode

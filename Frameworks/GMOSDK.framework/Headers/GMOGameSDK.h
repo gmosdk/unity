@@ -44,17 +44,17 @@
  */
 - (void) setAutoShowLoginDialog:(BOOL)autoShowLoginDialog;
 /**
- *  set hide payment view when tap on payment button
  *
- *  @param isHidePaymentView
+ *  @param isSetupTabbar
  */
-- (void) setHidePaymentView:(BOOL)isHidePaymentView;
+- (void) setSetupTabbar:(BOOL)isSetupTabbar;
 /**
  *  Hide GMO Logo
  *
  *  @param isHideGMOLogo 
  */
 - (void) setHideLogo:(BOOL)isHideLogo;
+
 
 /**
  *  Delegate for callback function to handle PAYMENT, LOGIN callback

@@ -19,12 +19,13 @@
 @property(readonly, strong)  NSString *roleName;
 @property(readonly, strong)  NSString *serverID;
 @property(readonly, strong)  NSString *serverName;
+@property (assign, nonatomic) BOOL acceptReceipt;
 
 @property(nonatomic, assign) BOOL isHideWelcomeView;
 @property(assign, nonatomic) BOOL isKeepLoginSession;
 @property (readwrite) BOOL autoShowPaymentButton;
 @property (assign, nonatomic) BOOL autoShowLoginDialog;
-@property (assign, nonatomic) BOOL isHidePaymentView;
+@property (assign, nonatomic) BOOL isSetupTabbar;
 @property (assign, nonatomic) BOOL isHideLogo;
 @property (nonatomic, readonly) int fbInviteState;
 
