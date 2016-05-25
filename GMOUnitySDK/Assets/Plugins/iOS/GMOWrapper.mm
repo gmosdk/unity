@@ -64,7 +64,7 @@ extern "C" {
     }
     
     const void setHidePaymentView(bool property) {
-        [[GMOGameSDK sharedInstance] setHidePaymentView: property];
+        [[GMOGameSDK sharedInstance] setSetupTabbar: property];
     }
     
     const void setKeepLoginSession(bool isKeepLoginSession) {
