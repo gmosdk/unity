@@ -85,6 +85,7 @@ typedef enum {
 + (void) handleFacebookOpenURL:(NSURL*) url;
 
 + (void) handleGMOOpenURL:(NSURL*) url;
++ (BOOL) handleGoogleOpenURL:(NSURL*) url;
 
 /**
  *  Error stacktrace function

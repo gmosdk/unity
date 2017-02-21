@@ -48,4 +48,5 @@
 + (id) getArchiveObjectWithKey:(NSString*) key;
 
 + (NSString*) getObjectKeyFromClass:(Class) c;
+
 @end

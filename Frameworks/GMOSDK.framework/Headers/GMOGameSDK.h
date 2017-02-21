@@ -192,4 +192,5 @@
                   serverName:(NSString *)serverName serverID:(NSString *)serverID;
 
 - (NSString*) getGamotaNews;
+- (void) updateGamotaNews;
 @end
