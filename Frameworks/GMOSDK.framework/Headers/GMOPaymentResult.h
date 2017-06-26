@@ -11,12 +11,9 @@
 #import "GMOBaseObject.h"
 
 @interface GMOPaymentResult : GMOBaseObject
-- (float)getAmountPaymentResult;
-- (NSString *)transactionID;
-- (NSString *)type;
+- (float) amount;
 - (NSString *)currency;
-- (NSString *)time;
-- (NSString *)packageID;
-//Payment Apple
-- (NSString *)appleProductID;
+- (NSString *)purchaseTime;
+- (NSString *)productID;
+- (NSString *)packageName;
 @end

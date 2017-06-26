@@ -171,6 +171,15 @@
      sourceApplication:(NSString*) sourceApplication
             annotation:(id) annotation;
 
+/**
+ *  Take a screen photo and share image to Facebook
+ */
+- (void) shareScreenFacebook;
+/**
+ *  Take a screen photo and share image to FB Messenger
+ */
+- (void) shareScreenMessenger;
+
 #pragma mark -- Notification
 /**
  *  Register push notification with Group Name
